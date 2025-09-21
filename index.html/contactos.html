@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Contacto por WhatsApp</title>
+  <style>
+
+.fondo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .contenido {
+      position: relative;
+      z-index: 1;
+      padding: 50px 20px;
+    }
+
+    .titulo {
+      font-size: 2.5rem;
+      color: #1fabc4;
+      text-align: center; /* centrado */
+      animation: entrada 4s ease-out forwards, brillo 6s infinite alternate;
+      opacity: 0;
+      margin: 0 auto 20px auto;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f5f5f5;
+      padding-top: 40px;
+    }
+    input, textarea {
+      display: block;
+      margin: 10px auto;
+      width: 90%;
+      max-width: 400px;
+      padding: 10px;
+      font-size: 16px;
+    }
+    @keyframes entrada {
+      0% {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes brillo {
+      0% {
+        text-shadow: 0 0 5px #021a15, 0 0 10px #02130f;
+      }
+      100% {
+        text-shadow: 0 0 15px #031411, 0 0 30px #011612;
+      }
+    }
+  
+    button {
+      padding: 10px 18px;
+      font-size: 14px;
+      border: none;
+      background-color: transparent; /* Fondo transparente */
+      color: #111010; /* Blanco para que se vea sobre la imagen */
+      border-radius: 6px;
+      cursor: pointer;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    button:hover {
+      color: #f0ecec;
+      text-shadow: 0 0 10px #0804f7;
+    }
+
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      justify-items: center;
+    }
+
+    .galeria img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 10px;
+      border: 3px solid white;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .galeria img:hover {
+      transform: scale(1.05);
+      border-color: #00c3ff;
+    }
+  </style>
+</head>
+<img class="fondo" src="src/image/fondo2.jpg" alt="Fondo">
+
+<div class="contenido">
+  <!-- Título -->
+  <h1 class="titulo">Contactos</h1>
+
+  <!-- Botón de volver -->
+  <button onclick="location.href='index.html'">Inicio</button>
+  <button onclick="location.href='tutorialesdvrhikvision.html'">Tutoriales DVR HIKVISION</button>
+  <button onclick="location.href='tutorialesdvrdahua.html'">Tutoriales DVR DAHUA</button>
+  <button onclick="location.href='tutorialesdsc.html'">Tutoriales SISTEMA DE ALARMA DSC</button>
+  <button onclick="location.href='tutorialesparadox.html'">Tutoriales SISTEMA DE PARADOX</button>
+  <button onclick="location.href='tutorialesincendio.html'">Tutoriales SISTEMA DE INCENDIO</button>
+  <button onclick="location.href='contactos.html'">CONTACTOS</button>
+</div>
+<body>
+  <h1>Consultano por tu presupuesto</h1>
+
+  <form id="formWhatsApp">
+    <input type="text" id="nombre" placeholder="Tu nombre" required>
+    <input type="email" id="email" placeholder="Tu correo (opcional)">
+    <textarea id="mensaje" placeholder="Tu mensaje" required></textarea>
+    <button type="submit">Enviar por WhatsApp</button>
+  </form>
+
+  <script>
+    document.getElementById("formWhatsApp").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      // Reemplaza con tu número (solo dígitos, con código de país, sin +)
+      const numero = "59891947036"; // Ej: Uruguay +598
+
+      // Capturar datos
+      const nombre  = document.getElementById("nombre").value;
+      const email   = document.getElementById("email").value;
+      const mensaje = document.getElementById("mensaje").value;
+
+      // Armar texto
+      let texto = `Hola, soy ${nombre}.`;
+      if (email) texto += ` Mi correo es: ${email}.`;
+      texto += `\n${mensaje}`;
+
+      // Codificar para URL
+      const textoCodificado = encodeURIComponent(texto);
+
+      // Redirigir a WhatsApp
+      window.open(`https://wa.me/${numero}?text=${textoCodificado}`, "_blank");
+    });
+  </script>
+</body>
+</html>
+
