@@ -4,22 +4,26 @@
   <meta charset="UTF-8">
   <title>DEVELOPER MIRANDA</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
 
     body {
       font-family: Arial, sans-serif;
+      background: #000;
       color: white;
-      background-color: #000;
       text-align: center;
       height: 100vh;
-      overflow: hidden;
-      position: relative;
     }
-
+    #logoutBtn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px;
+      border: none;
+      background: red;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
     .fondo {
       position: fixed;
       top: 0;
@@ -29,137 +33,22 @@
       object-fit: cover;
       z-index: -1;
     }
-
-    .contenido {
-      position: relative;
-      z-index: 1;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .logo {
-      width: 600px;
-      height: auto;
-      z-index: 2;
-      margin-bottom: 160px;
-      animation: aparecerZoom 10s ease-out forwards, flotar 10s ease-in-out infinite;
-      opacity: 0;
-    }
-
-    @keyframes aparecerZoom {
-      0% {
-        transform: scale(0.5);
-        opacity: 0;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    @keyframes flotar {
-      0% {
-        transform: translateY(0px);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
-      100% {
-        transform: translateY(0px);
-      }
-    }
-
-    .titulo {
-      font-size: 6.5rem;
-      color: #f9fafa;
-      animation: entrada 8s ease-out forwards, brillo 10s infinite alternate;
-      opacity: 0;
-    }
-
-    @keyframes entrada {
-      0% {
-        transform: translateY(-50px);
-        opacity: 0;
-      }
-      100% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    @keyframes brillo {
-      0% {
-        text-shadow: 0 0 5px #021a15, 0 0 10px #02130f;
-      }
-      100% {
-        text-shadow: 0 0 15px #031411, 0 0 30px #011612;
-      }
-    }
-
-    .botonera {
-      position: fixed;
-      top: 0;
-      right: 0;
-      display: flex;
-      gap: 10px;
-      padding: 15px 20px;
-      background: transparent;
-      z-index: 10;
-    }
-
-    .botonera button {
-      padding: 10px 18px;
-      font-size: 14px;
-      border: none;
-      background-color: transparent;
-      color: #fff;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: color 0.3s ease, text-shadow 0.3s ease;
-    }
-
-    .botonera button:hover {
-      color: #ebf3f3;
-      text-shadow: 0 0 20px #04f7d7;
-    }
   </style>
 </head>
 <body>
 
-  <!-- Imagen de fondo -->
-  <img class="fondo" src="src/image/fondo2.jpg" alt="Fondo">
+      <!-- Imagen de fondo -->
+      <img class="fondo" src="src/image/fondo2.jpg" alt="Fondo">
 
-  <!-- Contenido principal -->
-  <div class="contenido">
-    <!-- Imagen animada centrada -->
-    <img class="logo" src="src/image/logo1.png" alt="Logo centrado animado">
+  <h1>Bienvenido a DEVELOPER MIRANDA</h1>
+  <button id="logoutBtn" onclick="logoutUser()">Cerrar sesión</button>
+  <button onclick="location.href='tutorialesdsc.html'">Tutoriales SISTEMA DE ALARMA DSC</button>
 
-    <!-- Título animado -->
-    <h1 class="titulo">DEVELOPER MIRANDA</h1>
-  </div>
-
-  <!-- Botonera superior -->
-  <div class="botonera">
-    <button onclick="location.href='index.html'">Inicio</button>
-    <button onclick="location.href='tutorialesdvrhikvision.html'">Tutoriales DVR HIKVISION</button>
-    <button onclick="location.href='tutorialesdvrdahua.html'">Tutoriales DVR DAHUA</button>
-    <button onclick="location.href='tutorialesdsc.html'">Tutoriales SISTEMA DE ALARMA DSC</button>
-    <button onclick="location.href='tutorialesparadox.html'">Tutoriales SISTEMA DE PARADOX</button>
-    <button onclick="location.href='tutorialesincendio.html'">Tutoriales SISTEMA DE INCENDIO</button>
-    <button onclick="location.href='contactos.html'">CONTACTOS</button>
-  </div>
-
-  <!-- Firebase Scripts -->
   <script type="module">
-    // Importa Firebase como módulo
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-analytics.js";
+    import { getAuth, onAuthStateChanged, signOut } 
+      from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-    // Configuración de Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyCo3AluihZR3jxoj88KctYJz5ZBdXxX_vo",
       authDomain: "developermiranda-28c24.firebaseapp.com",
@@ -170,9 +59,24 @@
       measurementId: "G-SJPY70EXN6"
     };
 
-    // Inicializa Firebase
     const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+
+    // 🔒 Proteger la página
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        // Si NO está logueado => mandamos al login
+        window.location.href = "login.html";
+      }
+    });
+
+    // Logout
+    window.logoutUser = async function() {
+      await signOut(auth);
+      alert("Sesión cerrada");
+      window.location.href = "login.html";
+    };
   </script>
 </body>
 </html>
+
