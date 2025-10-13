@@ -43,70 +43,50 @@
   </video>
 
   <script>
-    // ⚙️ CONFIGURACIÓN
-    const MP_PUBLIC_KEY = "TU_PUBLIC_KEY_AQUI";
-    const BACKEND_URL = "https://tuservidor.com"; // URL donde corre tu server.js
-
-    const mp = new MercadoPago(MP_PUBLIC_KEY, {
-      locale: "es-UY" // cambia según tu país
+    // 🔑 Inicializar SDK de Mercado Pago
+    const mp = new MercadoPago("APP_USR-ce024f46-ed7a-499d-9675-a44e191c329a", {
+      locale: "es-AR",
     });
 
     const checkoutButton = document.getElementById("checkout-btn");
     const video = document.getElementById("video");
     const mensaje = document.getElementById("mensaje");
 
-    // 👉 Simulación de usuario (en producción usar Auth real)
-    const user = {
-      id: "user123",
-      email: "cliente@ejemplo.com",
-      videoId: "teclado"
-    };
-
-    // 🧾 Crear preferencia en tu backend
+    // 💳 Función para iniciar el pago
     checkoutButton.addEventListener("click", async () => {
       try {
-        const response = await fetch(`${BACKEND_URL}/create_preference`, {
+        const response = await fetch("http://localhost:5500/create_preference", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(user)
+          body: JSON.stringify({
+            title: "Video teclado premium",
+            quantity: 1,
+            unit_price: 10,
+          }),
         });
 
-        const preference = await response.json();
+        if (!response.ok) throw new Error("Error creando preferencia");
 
-        if (!preference.id) {
-          alert("Error creando preferencia");
-          return;
-        }
+        const data = await response.json();
 
+        // 🧾 Abre el checkout de Mercado Pago
         mp.checkout({
-          preference: {
-            id: preference.id
-          },
-          autoOpen: true
+          preference: { id: data.id },
+          autoOpen: true,
         });
-      } catch (error) {
-        console.error(error);
-        alert("Error al conectar con el servidor");
+      } catch (err) {
+        console.error(err);
+        alert("Hubo un error al intentar iniciar el pago.");
       }
     });
 
-    // 🔒 Mostrar video solo si pagó
-    async function verificarPago() {
-      try {
-        const response = await fetch(`${BACKEND_URL}/get_signed_url?videoId=${user.videoId}&userId=${user.id}`);
-        if (!response.ok) return; // Si no tiene acceso aún
-        const data = await response.json();
-        video.src = data.url || "teclado.mp4";
-        video.style.display = "block";
-        checkoutButton.style.display = "none";
-        mensaje.textContent = "✅ Acceso concedido. Disfrutá tu video.";
-      } catch (e) {
-        console.warn("Aún no tiene acceso");
-      }
+    // 🔓 Ejemplo (manual): mostrar video tras pago aprobado
+    // En producción, deberías verificar el pago en tu backend.
+    if (window.location.search.includes("status=approved")) {
+      mensaje.textContent = "✅ Pago aprobado. ¡Disfrutá tu video!";
+      checkoutButton.style.display = "none";
+      video.style.display = "block";
     }
-
-    // Revisa si ya pagó cada cierto tiempo (opcional)
-    verificarPago();
   </script>
 </body>
 </html>
