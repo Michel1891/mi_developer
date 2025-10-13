@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>DEVELOPER MIRANDA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 🧩 Favicon / Logo -->
+  <link rel="icon" href="src/image/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="src/image/logo.png">
+
+  <!-- 🧠 Metadatos SEO -->
+  <meta name="title" content="Developermiranda — desarrollo digital">
+  <meta name="description" content="developermiranda ofrece soluciones en desarrollo digital.">
+  <meta name="keywords" content="developermiranda, diseño web, apps, Uruguay, desarrollo digital">
+
+  <!-- 🌐 Open Graph -->
+  <meta property="og:title" content="Developermiranda — desarrollo digital">
+  <meta property="og:description" content="Soluciones innovadoras en desarrollo digital.">
+  <meta property="og:image" content="https://www.developermiranda.com/src/image/logo1.png">
+  <meta property="og:url" content="https://www.developermiranda.com">
+  <meta property="og:type" content="website">
+
+  <!-- 🐦 Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Developer Miranda — Innovación Digital">
+  <meta name="twitter:description" content="Soluciones tecnológicas integrales en desarrollo web y digital.">
+  <meta name="twitter:image" content="https://www.developermiranda.com/src/image/logo1.png">
+
+  <!-- Precarga de fondo -->
+  <link rel="preload" href="src/image/fondo4.jpg" as="image">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: white;
+      text-align: center;
+      height: 100vh;
+    }
+
+    /* Imagen de fondo */
+    .fondo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.8;
+    }
+
+    /* Logo principal */
+    .logo {
+      width: 900px;
+      max-width: 90%;
+      height: auto;
+      z-index: 2;
+      margin-bottom: 40px;
+      animation: aparecerZoom 4s ease-out forwards, flotar 6s ease-in-out infinite;
+      opacity: 0;
+    }
+
+    @keyframes aparecerZoom {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* Título animado */
+    .titulo {
+      font-size: 3.5rem;
+      color: #00f0ff;
+      animation: entrada 4s ease-out forwards, brillo 6s infinite alternate;
+      opacity: 0;
+    }
+
+    @keyframes entrada {
+      0% { transform: translateY(-50px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes brillo {
+      0% { text-shadow: 0 0 5px #00f0ff, 0 0 10px #00f0ff; }
+      100% { text-shadow: 0 0 20px #00ffee, 0 0 40px #00ffee; }
+    }
+
+    /* Botonera superior */
+    .botonera {
+      position: fixed;
+      top: 0;
+      right: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 15px 20px;
+      background-color: transparent;
+      z-index: 10;
+      justify-content: flex-end;
+    }
+
+    .botonera button {
+      padding: 15px 28px;
+      font-size: 14px;
+      border:Transparent;
+      background-color: transparent;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .botonera button:hover {
+      background: #00f0ff;
+      color: #000;
+      box-shadow: 0 0 15px #00f0ff;
+    }
+
+    /* Contenido principal */
+    .contenido {
+      margin-top: 120px;
+      z-index: 2;
+      position: relative;
+    }
+
+    /* Botón de logout */
+    #logoutBtn {
+      margin: 40px auto;
+      padding: 12px 25px;
+      background: #ff4444;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    #logoutBtn:hover {
+      background: #cc0000;
+      box-shadow: 0 0 15px #ff4444;
+    }
+
+    
+  </style>
+</head>
+<body>
+
+  <!-- Botonera -->
+  <div class="botonera">
+    <button onclick="location.href='tutorialesdvrhikvision.html'">DVR HIKVISION</button>
+    <button onclick="location.href='tutorialesdvrdahua.html'">DVR DAHUA</button>
+    <button onclick="location.href='tutorialesdsc.html'">ALARMA DSC</button>
+    <button onclick="location.href='tutorialesparadox.html'">PARADOX</button>
+    <button onclick="location.href='tutorialesincendio.html'">INCENDIO</button>
+    <button onclick="location.href='contactos.html'">CONTACTOS</button>
+    <button id="logoutBtn" onclick="logoutUser()">Cerrar sesión</button>
+  </div>
+
+  <!-- Imagen de fondo -->
+  <img class="fondo" src="src/image/fondo4.jpg" alt="Fondo">
+
+  <!-- Contenido principal -->
+  <div class="contenido">
+    <img class="logo" src="src/image/logo1.png" alt="Logo Developer Miranda">
+    <h1 class="titulo">INNOVACIÓN DIGITAL</h1>
+    <h2>Bienvenido a DEVELOPER MIRANDA</h2>
+  </div>
+
+  <!-- 🔥 Firebase Authentication -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } 
+      from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCo3AluihZR3jxoj88KctYJz5ZBdXxX_vo",
+      authDomain: "developermiranda-28c24.firebaseapp.com",
+      projectId: "developermiranda-28c24",
+      storageBucket: "developermiranda-28c24.appspot.com",
+      messagingSenderId: "396233852159",
+      appId: "1:396233852159:web:82af10b9facfe39dfe78ca",
+      measurementId: "G-SJPY70EXN6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // 🔒 Proteger la página
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+      }
+    });
+
+    // 🔓 Cerrar sesión
+    window.logoutUser = async function() {
+      await signOut(auth);
+      alert("Sesión cerrada correctamente");
+      window.location.href = "login.html";
+    };
+  </script>
+</body>
+</html>
+
+

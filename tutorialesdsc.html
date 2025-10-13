@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Pago con Mercado Pago</title>
+  <script src="https://sdk.mercadopago.com/js/v2"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: white;
+      text-align: center;
+      padding: 40px;
+    }
+    video {
+      display: none;
+      width: 80%;
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+    button {
+      background-color: #00b4d8;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #0096c7;
+    }
+  </style>
+</head>
+<body>
+  <h1>Video Premium 🎬</h1>
+  <p id="mensaje">Pagá para acceder al video completo</p>
+  <button id="checkout-btn">Pagar con Mercado Pago</button>
+
+  <video id="video" controls>
+    <source src="teclado.mp4" type="video/mp4">
+    Tu navegador no soporta video HTML5.
+  </video>
+
+  <script>
+    const mp = new MercadoPago("APP_USR-ce024f46-ed7a-499d-9675-a44e191c329a", {
+      locale: "es-AR",
+    });
+  
+    async function pagar() {
+      const response = await fetch("http://localhost:5500/create_preference", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: "Video teclado premium",
+          quantity: 1,
+          unit_price: 10,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      mp.checkout({
+        preference: {
+          id: data.id,
+        },
+        autoOpen: true,
+      });
+    }
+  </script>
+  
+  <button onclick="pagar()">Pagar con Mercado Pago</button>
+    
+  </script>
+</body>
+</html>
