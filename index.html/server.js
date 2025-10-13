@@ -114,7 +114,10 @@ app.get("/check_access", async (req, res) => {
     if (!userId || !videoId)
       return res.status(400).json({ error: "faltan parámetros" });
 
-    const doc = await db.collection("pagos").doc(`${userId}_${videoId}`).get();
+      await setDoc(doc(db, "pagos", `${userId}_${videoId}`), {
+        acceso: true,
+        fecha: new Date().toISOString()
+      });
 
     if (doc.exists && doc.data().acceso === true) {
       res.json({ acceso: true });
