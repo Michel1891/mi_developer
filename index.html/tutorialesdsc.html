@@ -2,101 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Video Pago Premium 🎬</title>
+  <title>Video Pago con Mercado Pago</title>
   <script src="https://sdk.mercadopago.com/js/v2"></script>
-  <script type="module">
-    // 🔥 Inicializar Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
-    import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "TU_API_KEY",
-      authDomain: "TU_PROYECTO.firebaseapp.com",
-      projectId: "TU_PROYECTO",
-      storageBucket: "TU_PROYECTO.appspot.com",
-      messagingSenderId: "XXXXXXX",
-      appId: "TU_APP_ID"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-
-    const mp = new MercadoPago("TU_PUBLIC_KEY_MERCADOPAGO", { locale: "es-UY" });
-
-    const loginBtn = document.getElementById("login-btn");
-    const logoutBtn = document.getElementById("logout-btn");
-    const checkoutBtn = document.getElementById("checkout-btn");
-    const video = document.getElementById("video");
-    const mensaje = document.getElementById("mensaje");
-    const userInfo = document.getElementById("user-info");
-
-    const BACKEND_URL = "https://tuservidor.com"; // tu dominio backend
-
-    // 🔐 Login con Google
-    loginBtn.onclick = async () => {
-      const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
-    };
-
-    logoutBtn.onclick = () => signOut(auth);
-
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        userInfo.textContent = `Hola, ${user.displayName}`;
-        loginBtn.style.display = "none";
-        logoutBtn.style.display = "inline-block";
-        checkoutBtn.style.display = "inline-block";
-
-        // Revisar si ya pagó el video
-        const docRef = doc(db, "pagos", `${user.uid}_teclado`);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists() && docSnap.data().acceso === true) {
-          mostrarVideo();
-        }
-      } else {
-        userInfo.textContent = "";
-        loginBtn.style.display = "inline-block";
-        logoutBtn.style.display = "none";
-        checkoutBtn.style.display = "none";
-        video.style.display = "none";
-        mensaje.textContent = "Iniciá sesión para continuar";
-      }
-    });
-
-    // 💳 Botón de pago
-    checkoutBtn.addEventListener("click", async () => {
-      const user = auth.currentUser;
-      if (!user) return alert("Primero iniciá sesión");
-
-      const response = await fetch(`${BACKEND_URL}/create_preference`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userId: user.uid,
-          email: user.email,
-          videoId: "teclado"
-        })
-      });
-
-      const data = await response.json();
-
-      mp.checkout({
-        preference: { id: data.id },
-        autoOpen: true
-      });
-    });
-
-    // 🎥 Mostrar video
-    function mostrarVideo() {
-      video.style.display = "block";
-      checkoutBtn.style.display = "none";
-      mensaje.textContent = "✅ Acceso concedido. Disfrutá tu video.";
-    }
-  </script>
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -119,26 +26,87 @@
       border-radius: 8px;
       cursor: pointer;
       font-size: 16px;
-      margin: 5px;
     }
     button:hover {
       background-color: #0096c7;
     }
   </style>
 </head>
-
 <body>
   <h1>Video Premium 🎬</h1>
   <p id="mensaje">Pagá para acceder al video completo</p>
-  <div id="user-info"></div>
-
-  <button id="login-btn">Iniciar sesión con Google</button>
-  <button id="logout-btn" style="display:none;">Cerrar sesión</button>
-  <button id="checkout-btn" style="display:none;">Pagar con Mercado Pago</button>
+  <button id="checkout-btn">Pagar con Mercado Pago</button>
 
   <video id="video" controls>
     <source src="teclado.mp4" type="video/mp4">
     Tu navegador no soporta video HTML5.
   </video>
+
+  <script>
+    // ⚙️ CONFIGURACIÓN
+    const MP_PUBLIC_KEY = "TU_PUBLIC_KEY_AQUI";
+    const BACKEND_URL = "https://tuservidor.com"; // URL donde corre tu server.js
+
+    const mp = new MercadoPago(MP_PUBLIC_KEY, {
+      locale: "es-UY" // cambia según tu país
+    });
+
+    const checkoutButton = document.getElementById("checkout-btn");
+    const video = document.getElementById("video");
+    const mensaje = document.getElementById("mensaje");
+
+    // 👉 Simulación de usuario (en producción usar Auth real)
+    const user = {
+      id: "user123",
+      email: "cliente@ejemplo.com",
+      videoId: "teclado"
+    };
+
+    // 🧾 Crear preferencia en tu backend
+    checkoutButton.addEventListener("click", async () => {
+      try {
+        const response = await fetch(`${BACKEND_URL}/create_preference`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(user)
+        });
+
+        const preference = await response.json();
+
+        if (!preference.id) {
+          alert("Error creando preferencia");
+          return;
+        }
+
+        mp.checkout({
+          preference: {
+            id: preference.id
+          },
+          autoOpen: true
+        });
+      } catch (error) {
+        console.error(error);
+        alert("Error al conectar con el servidor");
+      }
+    });
+
+    // 🔒 Mostrar video solo si pagó
+    async function verificarPago() {
+      try {
+        const response = await fetch(`${BACKEND_URL}/get_signed_url?videoId=${user.videoId}&userId=${user.id}`);
+        if (!response.ok) return; // Si no tiene acceso aún
+        const data = await response.json();
+        video.src = data.url || "teclado.mp4";
+        video.style.display = "block";
+        checkoutButton.style.display = "none";
+        mensaje.textContent = "✅ Acceso concedido. Disfrutá tu video.";
+      } catch (e) {
+        console.warn("Aún no tiene acceso");
+      }
+    }
+
+    // Revisa si ya pagó cada cierto tiempo (opcional)
+    verificarPago();
+  </script>
 </body>
 </html>
