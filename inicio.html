@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Área Premium</title>
+
+  <!-- 🔥 Firebase -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } 
@@ -32,17 +34,84 @@
     };
   </script>
 
+  <!-- 🎨 Estilos -->
   <style>
-    body { font-family:Arial; background:#111; color:#fff; text-align:center; padding:50px; }
-    a.button { background:#00b4d8; color:#fff; padding:15px 25px; text-decoration:none; border-radius:8px; display:inline-block; margin-top:30px; }
-    button { background:#555; color:#fff; padding:10px 20px; border:none; border-radius:6px; cursor:pointer; }
+    body {
+      font-family: Arial, sans-serif;
+      background: url("src/image/fondo4.jpg") no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+      margin: 0;
+    }
+
+    .logo {
+      width: 150px;
+      height: auto;
+      animation: aparecerZoom 2s ease-out forwards, flotar 6s ease-in-out infinite;
+      opacity: 0;
+      margin-bottom: 20px;
+    }
+
+    @keyframes aparecerZoom {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .container {
+      background: rgba(53, 47, 47, 0.75);
+      padding: 40px;
+      border-radius: 15px;
+      max-width: 400px;
+      margin: 100px auto;
+      box-shadow: 0 0 20px rgba(0, 180, 216, 0.5);
+    }
+
+    a.button {
+      background: #00b4d8;
+      color: #fff;
+      padding: 15px 25px;
+      text-decoration: none;
+      border-radius: 8px;
+      display: inline-block;
+      margin-top: 30px;
+      transition: background 0.3s;
+    }
+
+    a.button:hover {
+      background: #0091ad;
+    }
+
+    button {
+      background: #555;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    h1 {
+      text-shadow: 0 0 10px #00b4d8;
+    }
   </style>
 </head>
+
 <body>
+  <!-- 🧩 Logo -->
+  <div class="container">
+  <img src="src/image/logo1.png" alt="Logo" class="logo">
+
   <h1>Área Premium</h1>
   <p>Bienvenido: <span id="userEmail"></span></p>
 
-  <p>Suscribite por solo <strong>USD 5/mes</strong> para acceder a los tutoriales.</p>
+  <p>Suscribite por solo <strong>$300/mes</strong> para acceder a los tutoriales.</p>
 
   <a class="button" href="https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=80b9657a5e7040b794c98f5d55ce4a6e">
     💳 Suscribirme
@@ -53,6 +122,6 @@
 
   <br><br>
   <button onclick="logoutUser()">Cerrar sesión</button>
+</div>
 </body>
 </html>
-
