@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Iniciar sesión</title>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { 
+      getAuth, 
+      signInWithEmailAndPassword, 
+      createUserWithEmailAndPassword, 
+      GoogleAuthProvider, 
+      signInWithPopup 
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCo3AluihZR3jxoj88KctYJz5ZBdXxX_vo",
+      authDomain: "developermiranda-28c24.firebaseapp.com",
+      projectId: "developermiranda-28c24",
+      storageBucket: "developermiranda-28c24.appspot.com",
+      messagingSenderId: "396233852159",
+      appId: "1:396233852159:web:82af10b9facfe39dfe78ca",
+      measurementId: "G-SJPY70EXN6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = e.target.email.value;
+      const pass = e.target.password.value;
+      try {
+        await signInWithEmailAndPassword(auth, email, pass);
+        window.location.href = "inicio.html";
+      } catch {
+        alert("Usuario no encontrado o contraseña incorrecta");
+      }
+    });
+
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = e.target.email.value;
+      const pass = e.target.password.value;
+      try {
+        await createUserWithEmailAndPassword(auth, email, pass);
+        alert("Registro exitoso");
+        window.location.href = "inicio.html";
+      } catch {
+        alert("Error al registrar el usuario");
+      }
+    });
+
+    document.getElementById("googleBtn").addEventListener("click", async () => {
+      try {
+        await signInWithPopup(auth, provider);
+        window.location.href = "inicio.html";
+      } catch {
+        alert("Error al iniciar sesión con Google");
+      }
+    });
+  </script>
+  <style>
+    body { background:#111; color:#fff; text-align:center; font-family:Arial; }
+    input, button { padding:10px; margin:10px; border:none; border-radius:5px; }
+    button { background:#00b4d8; color:#fff; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <h1>Iniciar sesión</h1>
+
+  <form id="loginForm">
+    <input type="email" name="email" placeholder="Email" required><br>
+    <input type="password" name="password" placeholder="Contraseña" required><br>
+    <button type="submit">Entrar</button>
+  </form>
+
+  <h3>Registrarse</h3>
+  <form id="registerForm">
+    <input type="email" name="email" placeholder="Email" required><br>
+    <input type="password" name="password" placeholder="Contraseña" required><br>
+    <button type="submit">Registrar</button>
+  </form>
+
+  <hr>
+  <button id="googleBtn">Iniciar sesión con Google</button>
+</body>
+</html>

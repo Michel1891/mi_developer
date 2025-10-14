@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Área Premium</title>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } 
+      from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCo3AluihZR3jxoj88KctYJz5ZBdXxX_vo",
+      authDomain: "developermiranda-28c24.firebaseapp.com",
+      projectId: "developermiranda-28c24",
+      storageBucket: "developermiranda-28c24.appspot.com",
+      messagingSenderId: "396233852159",
+      appId: "1:396233852159:web:82af10b9facfe39dfe78ca",
+      measurementId: "G-SJPY70EXN6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) window.location.href = "index.html";
+      else document.getElementById("userEmail").textContent = user.email;
+    });
+
+    window.logoutUser = async function() {
+      await signOut(auth);
+      window.location.href = "index.html";
+    };
+  </script>
+
+  <style>
+    body { font-family:Arial; background:#111; color:#fff; text-align:center; padding:50px; }
+    a.button { background:#00b4d8; color:#fff; padding:15px 25px; text-decoration:none; border-radius:8px; display:inline-block; margin-top:30px; }
+    button { background:#555; color:#fff; padding:10px 20px; border:none; border-radius:6px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <h1>Área Premium</h1>
+  <p>Bienvenido: <span id="userEmail"></span></p>
+
+  <p>Suscribite por solo <strong>USD 5/mes</strong> para acceder a los tutoriales.</p>
+
+  <a class="button" href="https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=80b9657a5e7040b794c98f5d55ce4a6e">
+    💳 Suscribirme
+  </a>
+
+  <br><br>
+  <a class="button" href="tutoriales.html">🎥 Ir a los tutoriales</a>
+
+  <br><br>
+  <button onclick="logoutUser()">Cerrar sesión</button>
+</body>
+</html>
+

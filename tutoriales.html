@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Tutoriales Premium</title>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCo3AluihZR3jxoj88KctYJz5ZBdXxX_vo",
+      authDomain: "developermiranda-28c24.firebaseapp.com",
+      projectId: "developermiranda-28c24",
+      storageBucket: "developermiranda-28c24",
+      messagingSenderId: "396233852159",
+      appId: "1:396233852159:web:82af10b9facfe39dfe78ca",
+      measurementId: "G-SJPY70EXN6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const mensaje = document.getElementById("mensaje");
+    const listaVideos = document.getElementById("lista-videos");
+
+    let userEmail = null;
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        window.location.href = "index.html";
+      } else {
+        userEmail = user.email;
+        mensaje.textContent = `Hola ${user.displayName || user.email}. Verificando suscripción...`;
+        await checkSubscription();
+      }
+    });
+
+    async function checkSubscription() {
+      if (!userEmail) return;
+      try {
+        const res = await fetch(`http://localhost:5500/check_subscription?email=${encodeURIComponent(userEmail)}`);
+        const data = await res.json();
+        if (data.active) {
+          mensaje.textContent = "✅ Suscripción activa. ¡Disfrutá los tutoriales!";
+          listaVideos.style.display = "block";
+        } else {
+          mensaje.textContent = "❌ Necesitás una suscripción activa para ver los tutoriales.";
+          listaVideos.style.display = "none";
+          // Opcional: redirigir al checkout de suscripción
+          // window.location.href = "video.html";
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    window.logoutUser = async function() {
+      await signOut(auth);
+      alert("Sesión cerrada correctamente");
+      window.location.href = "index.html";
+    };
+  </script>
+  <style>
+    body { font-family: Arial; background:#111; color:#fff; text-align:center; padding:40px; }
+    video { width:80%; margin:10px auto; border-radius:8px; display:block; }
+    button { background:#00b4d8; color:#fff; padding:10px 15px; border:none; border-radius:6px; cursor:pointer; margin:5px;}
+    li { margin:15px 0; }
+  </style>
+</head>
+<body>
+  <h1>Tutoriales Premium 🎬</h1>
+  <p id="mensaje">Verificando suscripción...</p>
+  <button onclick="logoutUser()">Cerrar sesión</button>
+
+  <ul id="lista-videos" style="display:none; list-style:none; padding:0;">
+    <li>
+      <h3>Video 1: Introducción</h3>
+      <video controls>
+        <source src="video1.mp4" type="video/mp4">
+        Tu navegador no soporta video HTML5.
+      </video>
+    </li>
+    <li>
+      <h3>Video 2: Producción avanzada</h3>
+      <video controls>
+        <source src="video2.mp4" type="video/mp4">
+        Tu navegador no soporta video HTML5.
+      </video>
+    </li>
+    <li>
+      <h3>Video 3: Tips y Trucos</h3>
+      <video controls>
+        <source src="video3.mp4" type="video/mp4">
+        Tu navegador no soporta video HTML5.
+      </video>
+    </li>
+  </ul>
+</body>
+</html>
+
