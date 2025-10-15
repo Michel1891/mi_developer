@@ -2,14 +2,15 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 🔹 necesario para móviles -->
   <title>Iniciar sesión</title>
   <style>
     body {
       background-color: #034164b9;
       display: flex;
-      justify-content: center;  /* Centra horizontalmente */
-      align-items: center;      /* Centra verticalmente */
-      height: 100vh;            /* Ocupa toda la altura de la pantalla */
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
       margin: 0;
       font-family: Arial, sans-serif;
       color: white;
@@ -78,6 +79,32 @@
       margin: 20px 0;
       border: 1px solid #333;
     }
+
+    /* 🔹 Ajustes para celulares */
+    @media (max-width: 480px) {
+      body {
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 90%;
+        padding: 25px;
+      }
+
+      .logo {
+        width: 180px;
+      }
+
+      .titulo {
+        font-size: 1.5rem;
+      }
+
+      input, button {
+        width: 100%;
+        font-size: 1rem;
+        padding: 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -126,7 +153,6 @@
     const auth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
-    // Login con email
     document.getElementById("loginForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = e.target.email.value;
@@ -139,7 +165,6 @@
       }
     });
 
-    // Registro
     document.getElementById("registerForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = e.target.email.value;
@@ -153,7 +178,6 @@
       }
     });
 
-    // Google login
     document.getElementById("googleBtn").addEventListener("click", async () => {
       try {
         await signInWithPopup(auth, provider);
@@ -165,4 +189,3 @@
   </script>
 </body>
 </html>
-
