@@ -39,9 +39,9 @@
      body {
       background-color: #034164b9;
       display: flex;
-      justify-content: center;  /* Centra horizontalmente */
-      align-items: center;      /* Centra verticalmente */
-      height: 100vh;            /* Ocupa toda la altura de la pantalla */
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
       margin: 0;
       font-family: Arial, sans-serif;
       color: white;
@@ -64,6 +64,7 @@
       0%, 100% { transform: translateY(0px); }
       50% { transform: translateY(-10px); }
     }
+
     .container {
       background: rgba(53, 47, 47, 0.75);
       padding: 40px;
@@ -102,29 +103,51 @@
     h1 {
       text-shadow: 0 0 10px #00b4d8;
     }
+
+    /* 📱 Estilos para celulares */
+    @media (max-width: 480px) {
+      .container {
+        max-width: 90%;
+        padding: 25px;
+      }
+
+      .logo {
+        width: 180px;
+      }
+
+      a.button {
+        padding: 12px 20px;
+        font-size: 15px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+    }
   </style>
 </head>
 
 <body>
   <!-- 🧩 Logo -->
   <div class="container">
-  <img src="src/image/logo1.png" alt="Logo" class="logo">
+    <img src="src/image/logo1.png" alt="Logo" class="logo">
 
-  <h1>Área Premium</h1>
-  <p>Bienvenido: <span id="userEmail"></span></p>
+    <h1>Área Premium</h1>
+    <p>Bienvenido: <span id="userEmail"></span></p>
 
-  <p>Suscribite por solo <strong>$300/mes</strong> para acceder a los tutoriales.</p>
+    <p>Suscribite por solo <strong>$300/mes</strong> para acceder a los tutoriales.</p>
 
-  <a class="button" href="https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=80b9657a5e7040b794c98f5d55ce4a6e">
-    💳 Suscribirme
-  </a>
+    <a class="button" href="https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=80b9657a5e7040b794c98f5d55ce4a6e">
+      💳 Suscribirme
+    </a>
 
-  <br><br>
-  <a class="button" href="tutoriales.html">🎥 Ir a los tutoriales</a>
+    <br><br>
+    <a class="button" href="tutoriales.html">🎥 Ir a los tutoriales</a>
 
-  <br><br>
-  <button onclick="logoutUser()">Cerrar sesión</button>
-</div>
+    <br><br>
+    <button onclick="logoutUser()">Cerrar sesión</button>
+  </div>
 </body>
 </html>
+
 
