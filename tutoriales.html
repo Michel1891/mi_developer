@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ✅ esencial para móviles -->
   <title>Tutoriales Premium</title>
   <style>
    body {
@@ -14,6 +15,7 @@
       font-family: Arial, sans-serif;
       color: white;
     }
+
     .container {
       background: rgba(53, 47, 47, 0.75);
       padding: 40px;
@@ -91,51 +93,97 @@
       border-radius: 10px;
       margin-top: 20px;
     }
+
+    /* 📱 Ajustes para celulares */
+    @media (max-width: 480px) {
+      body {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 100%;
+        width: 100%;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(255,255,255,0.3);
+      }
+
+      .logo {
+        width: 180px;
+        margin-bottom: 15px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      video {
+        width: 100%;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+      }
+
+      #mensaje {
+        font-size: 1rem;
+      }
+
+      .bloqueado {
+        font-size: 0.9rem;
+        padding: 8px 10px;
+      }
+    }
   </style>
 </head>
 <body>
   <!-- 🧩 Logo -->
   <div class="container">
+    <img src="src/image/logo1.png" alt="Logo" class="logo">
 
-  <img src="src/image/logo1.png" alt="Logo" class="logo">
+    <h1>Tutoriales Premium 🎬</h1>
+    <p id="mensaje">Verificando suscripción...</p>
 
-  <h1>Tutoriales Premium 🎬</h1>
-  <p id="mensaje">Verificando suscripción...</p>
+    <div id="bloqueo" class="bloqueado" style="display:none;">
+      ⚠️ Tu suscripción no está activa.  
+      <br>Suscribite para acceder al contenido premium.
+      <br><br>
+      <a href="https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=80b9657a5e7040b794c98f5d55ce4a6e"
+         style="color:#00b4d8; text-decoration:none; font-weight:bold;">
+         💳 Activar Suscripción
+      </a>
+    </div>
 
-  <div id="bloqueo" class="bloqueado" style="display:none;">
-    ⚠️ Tu suscripción no está activa.  
-    <br>Suscribite para acceder al contenido premium.
-    <br><br>
-    <a href="https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=80b9657a5e7040b794c98f5d55ce4a6e"
-       style="color:#00b4d8; text-decoration:none; font-weight:bold;">
-       💳 Activar Suscripción
-    </a>
+    <button onclick="logoutUser()">Cerrar sesión</button>
+
+    <ul id="lista-videos" style="display:none; padding:0;">
+      <li>
+        <h3>Video 1: Introducción</h3>
+        <video controls>
+          <source src="video1.mp4" type="video/mp4">
+          Tu navegador no soporta video HTML5.
+        </video>
+      </li>
+      <li>
+        <h3>Video 2: Producción avanzada</h3>
+        <video controls>
+          <source src="video2.mp4" type="video/mp4">
+          Tu navegador no soporta video HTML5.
+        </video>
+      </li>
+      <li>
+        <h3>Video 3: Tips y Trucos</h3>
+        <video controls>
+          <source src="video3.mp4" type="video/mp4">
+          Tu navegador no soporta video HTML5.
+        </video>
+      </li>
+    </ul>
   </div>
-  <button onclick="logoutUser()">Cerrar sesión</button>
-
-  <ul id="lista-videos" style="display:none; padding:0;">
-    <li>
-      <h3>Video 1: Introducción</h3>
-      <video controls>
-        <source src="video1.mp4" type="video/mp4">
-        Tu navegador no soporta video HTML5.
-      </video>
-    </li>
-    <li>
-      <h3>Video 2: Producción avanzada</h3>
-      <video controls>
-        <source src="video2.mp4" type="video/mp4">
-        Tu navegador no soporta video HTML5.
-      </video>
-    </li>
-    <li>
-      <h3>Video 3: Tips y Trucos</h3>
-      <video controls>
-        <source src="video3.mp4" type="video/mp4">
-        Tu navegador no soporta video HTML5.
-      </video>
-    </li>
-  </ul>
 
   <!-- 🔥 Firebase + Validación de suscripción -->
   <script type="module">
@@ -161,7 +209,6 @@
 
     let userEmail = null;
 
-    // 🧩 Verifica usuario autenticado
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
         window.location.href = "index.html";
@@ -172,7 +219,6 @@
       }
     });
 
-    // 🧠 Verifica suscripción activa en tu backend
     async function checkSubscription() {
       if (!userEmail) return;
       try {
@@ -194,7 +240,6 @@
       }
     }
 
-    // 🚪 Cerrar sesión
     window.logoutUser = async function() {
       await signOut(auth);
       alert("Sesión cerrada correctamente");
@@ -203,4 +248,3 @@
   </script>
 </body>
 </html>
-
