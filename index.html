@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 🔹 necesario para móviles -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 🔹 hace que escale en móviles -->
   <title>Iniciar sesión</title>
   <style>
     body {
@@ -80,15 +80,19 @@
       border: 1px solid #333;
     }
 
-    /* 🔹 Ajustes para celulares */
-    @media (max-width: 480px) {
+    /* 📱 Ajuste REAL para móviles */
+    @media (max-width: 600px) {
       body {
-        padding: 20px;
+        padding: 10px;
+        height: auto;
       }
 
       .container {
-        max-width: 90%;
+        max-width: 100%; /* 👉 ocupa todo el ancho disponible */
+        width: 100%;
         padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(255,255,255,0.3);
       }
 
       .logo {
@@ -96,7 +100,7 @@
       }
 
       .titulo {
-        font-size: 1.5rem;
+        font-size: 1.6rem;
       }
 
       input, button {
@@ -189,3 +193,4 @@
   </script>
 </body>
 </html>
+
