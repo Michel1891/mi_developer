@@ -4,22 +4,24 @@
   <meta charset="UTF-8">
   <title>Tutoriales Premium</title>
   <style>
-    body {
-      background: url("src/image/fondo4.jpg") no-repeat center center fixed;
-      background-size: cover;
-      color: #fff;
-      text-align: center;
-      font-family: Arial, sans-serif;
+   body {
+      background-color: #034164b9;
+      display: flex;
+      justify-content: center;  /* Centra horizontalmente */
+      align-items: center;      /* Centra verticalmente */
+      height: 100vh;            /* Ocupa toda la altura de la pantalla */
       margin: 0;
-      padding: 40px;
+      font-family: Arial, sans-serif;
+      color: white;
     }
     .container {
       background: rgba(53, 47, 47, 0.75);
       padding: 40px;
       border-radius: 15px;
       max-width: 300px;
-      margin: 100px auto;
+      width: 100%;
       box-shadow: 0 0 20px rgba(0, 180, 216, 0.5);
+      text-align: center;
     }
 
     .logo {
@@ -94,6 +96,7 @@
 <body>
   <!-- 🧩 Logo -->
   <div class="container">
+
   <img src="src/image/logo1.png" alt="Logo" class="logo">
 
   <h1>Tutoriales Premium 🎬</h1>
@@ -108,7 +111,6 @@
        💳 Activar Suscripción
     </a>
   </div>
-
   <button onclick="logoutUser()">Cerrar sesión</button>
 
   <ul id="lista-videos" style="display:none; padding:0;">
