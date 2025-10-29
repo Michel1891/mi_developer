@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Developer Miranda</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Favicon / Logo -->
+  <link rel="icon" href="src/image/logo1.png" type="image/png">
+  <link rel="apple-touch-icon" href="src/image/logo1.png">
+
+  <!-- Estilos -->
+  <style>
+    :root {
+      --accent: #00b4d8;
+      --radius: 12px;
+      --max-width: 700px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #034164b9;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .fondo {
+      position: fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity:0.25;
+    }
+
+    .botonera {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      z-index: 10;
+    }
+
+    .botonera button {
+      background-color: rgba(0,0,0,0.6);
+      color: white;
+      border: 1px solid var(--accent);
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .botonera button:hover {
+      background-color: var(--accent);
+      color: black;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .container {
+      position: relative;
+      max-width: var(--max-width);
+      margin: 100px auto 20px auto;
+      background: rgba(53,47,47,0.75);
+      padding: 30px;
+      border-radius: var(--radius);
+      text-align: center;
+      box-shadow: 0 0 20px rgb(247,247,247);
+      animation: entrada 2s ease-out forwards, flotar 6s ease-in-out infinite;
+      opacity: 0;
+    }
+
+    .logo {
+      width: 200px;
+      height: auto;
+      margin-bottom: 20px;
+      animation: entrada 2s ease-out forwards, flotar 6s ease-in-out infinite;
+      opacity: 0;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px #00b4d8;
+    }
+
+    /* Nueva sección de contenido */
+    .content {
+      background: rgba(255,255,255,0.05);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin: 20px auto;
+      max-width: var(--max-width);
+      color: #fff;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      text-align: left;
+      animation: entrada 2s ease-out forwards;
+    }
+
+    .content h2 { color: var(--accent); margin-bottom: 10px; }
+    .content h3 { color: var(--accent); margin-top: 15px; }
+    .content p { line-height: 1.6; }
+    .content ul { margin: 10px 0 0 20px; }
+    .content ul li { margin: 8px 0; }
+
+    .download-btn {
+      display:inline-block;
+      background: var(--accent);
+      color:white;
+      padding:12px 20px;
+      border-radius:8px;
+      text-decoration:none;
+      font-weight:600;
+      margin-top:16px;
+      transition: background 0.3s ease;
+    }
+
+    .download-btn:hover { background:#0091ad; }
+
+    @keyframes entrada {
+      0% { transform: translateY(-50px) scale(0.5); opacity: 0; }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* 📱 Adaptación completa para celulares */
+    @media (max-width: 480px) {
+      body {
+        overflow-x: hidden;
+        padding: 10px;
+      }
+
+      .container, .content {
+        max-width: 95%;
+        padding: 20px;
+        margin-top: 60px;
+        box-shadow: 0 0 15px rgba(247, 247, 247, 0.8);
+      }
+
+      .logo {
+        width: 160px;
+        margin-bottom: 15px;
+      }
+
+      h1 {
+        font-size: 1.4rem;
+        margin-bottom: 12px;
+        text-align: center;
+      }
+
+      .content h2 {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+      }
+
+      .content h3 {
+        font-size: 1rem;
+        margin-top: 12px;
+      }
+
+      .content p, .content ul li {
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .download-btn, .button {
+        padding: 10px 16px;
+        font-size: 14px;
+        margin-top: 15px;
+      }
+
+      .botonera {
+        position: relative;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Fondo -->
+  <img class="fondo" src="src/image/fondo2.jpg" alt="Fondo Developer Miranda">
+
+  <!-- Botonera -->
+  <div class="botonera">
+    <button onclick="location.href='principal.html'">Inicio</button>
+    <button onclick="location.href='sobre.html'">Perfil del creador</button>
+    <button onclick="location.href='manualix.html'">ManualiX App</button>
+    <button onclick="location.href='tutoriales.html'">Tutoriales</button>
+    <button onclick="location.href='contacto.html'">Contactos</button>
+  </div>
+
+  <!-- Contenedor principal -->
+  <div class="container">
+    <img src="src/image/logo1.png" alt="Logo Developer Miranda" class="logo">
+    <h1>Developer Miranda y ManualiX app</h1>
+    <p>Bienvenido al área principal de <strong>Developer Miranda</strong>. Aquí encontrarás información de la app y recursos importantes.</p>
+    <a class="button" href="manualix.html">Ir a ManualiX App</a>
+  </div>
+
+  <!-- Sección descriptiva de ManualiX -->
+  <div class="content">
+    <h2>ManualiX – Tu asistente técnico en sistemas de seguridad</h2>
+    <p><strong>ManualiX</strong> es una aplicación diseñada especialmente para <strong>técnicos instaladores de sistemas de alarma, CCTV y seguridad electrónica</strong>. Con ManualiX tendrás todos los manuales, guías rápidas y herramientas esenciales siempre a mano, directamente en tu dispositivo móvil.</p>
+    <h3>🔧 ¿Qué ofrece ManualiX?</h3>
+    <ul>
+      <li>📚 <strong>Manuales y guías técnicas</strong> de las principales marcas de alarmas, cámaras y sistemas de incendio.</li>
+      <li>👨‍🔧 <strong>Acceso exclusivo para técnicos certificados</strong>, organizado por categorías y modelos.</li>
+      <li>💳 <strong>Suscripción Premium</strong> para desbloquear contenido avanzado, actualizaciones y soporte técnico.</li>
+      <li>🌐 <strong>Actualizaciones automáticas</strong> con nuevos documentos y recursos.</li>
+      <li>🔒 <strong>Información verificada</strong>, sin perder tiempo buscando en internet.</li>
+    </ul>
+    <p>Ideal para técnicos, instaladores y profesionales que buscan una herramienta confiable y práctica para su trabajo diario.</p>
+    <p>Con ManualiX, ya no necesitás buscar en internet: <strong>todo lo que necesitás está en un solo lugar.</strong></p>
+    <a class="download-btn" href="https://play.google.com/store/apps/details?id=com.creatormichel.manualix" target="_blank">📲 Descargar ManualiX desde Google Play</a>
+  </div>
+
+  <!-- Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB_0_PIpdto8u1touBZNVoHiago6M2akoc",
+      authDomain: "manualix-1d0fc.firebaseapp.com",
+      projectId: "manualix-1d0fc",
+      storageBucket: "manualix-1d0fc.appspot.com",
+      messagingSenderId: "847110946549",
+      appId: "1:847110946549:web:0a507851fef1d9df6ccfbc",
+      measurementId: "G-88SXXJDLND"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    console.log("🔥 Firebase inicializado correctamente en página principal");
+  </script>
+</body>
+</html>

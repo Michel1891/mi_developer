@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área Premium</title>
+
+  <!-- 🔥 Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } 
+      from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+      const firebaseConfig = {
+  apiKey: "AIzaSyB_0_PIpdto8u1touBZNVoHiago6M2akoc",
+  authDomain: "manualix-1d0fc.firebaseapp.com",
+  projectId: "manualix-1d0fc",
+  storageBucket: "manualix-1d0fc.appspot.com",
+  messagingSenderId: "847110946549",
+  appId: "1:847110946549:web:0a507851fef1d9df6ccfbc",
+  measurementId: "G-88SXXJDLND"
+};
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) window.location.href = "index.html";
+      else document.getElementById("userEmail").textContent = user.email;
+    });
+
+    window.logoutUser = async function() {
+      await signOut(auth);
+      window.location.href = "index.html";
+    };
+  </script>
+
+  <!-- 🎨 Estilos -->
+  <style>
+    body {
+      background-color: #034164b9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    .logo {
+      width: 250px;
+      height: auto;
+      animation: aparecerZoom 2s ease-out forwards, flotar 6s ease-in-out infinite;
+      opacity: 0;
+      margin-bottom: 20px;
+    }
+
+    @keyframes aparecerZoom {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .container {
+      background: rgba(53, 47, 47, 0.75);
+      padding: 40px;
+      border-radius: 15px;
+      max-width: 300px;
+      width: 100%;
+      box-shadow: 0 0 20px rgb(247, 247, 247);
+      text-align: center;
+    }
+
+    a.button {
+      background: #00b4d8;
+      color: #fff;
+      padding: 15px 25px;
+      text-decoration: none;
+      border-radius: 8px;
+      display: inline-block;
+      margin-top: 30px;
+      transition: background 0.3s;
+    }
+
+    a.button:hover {
+      background: #0091ad;
+    }
+
+    button {
+      background: #555;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    h1 {
+      text-shadow: 0 0 10px #00b4d8;
+    }
+
+    /* 📱 Ajustes responsive para celulares */
+    @media (max-width: 480px) {
+      body {
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 20px;
+        height: auto;
+      }
+
+      .container {
+        max-width: 95%;
+        padding: 25px;
+        margin-top: 40px;
+        box-shadow: 0 0 15px rgba(247, 247, 247, 0.8);
+      }
+
+      .logo {
+        width: 160px;
+        margin-bottom: 15px;
+      }
+
+      h1 {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 15px;
+        line-height: 1.4em;
+      }
+
+      a.button {
+        padding: 12px 18px;
+        font-size: 15px;
+        margin-top: 20px;
+      }
+
+      button {
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <img src="src/image/fondo2.jpg" alt="Logo" class="logo">
+
+    <h1>Área Premium</h1>
+    <p>Bienvenido: <span id="userEmail"></span></p>
+
+    <p>Suscribite por solo <strong>$300/mes</strong> para acceder a los tutoriales.</p>
+
+    <a class="button" href="https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=80b9657a5e7040b794c98f5d55ce4a6e">
+      💳 Suscribirme
+    </a>
+
+    <br><br>
+    <a class="button" href="tutoriales.html">🎥 Ir a los tutoriales</a>
+
+    <br><br>
+    <button onclick="logoutUser()">Cerrar sesión</button>
+  </div>
+</body>
+</html>
+

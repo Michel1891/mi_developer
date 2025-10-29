@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Contacto por WhatsApp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Favicon / Logo -->
+  <link rel="icon" href="src/image/logo1.png" type="image/png">
+  <link rel="apple-touch-icon" href="src/image/logo1.png">
+
+  <style>
+    :root {
+      --accent: #00b4d8;
+      --radius: 12px;
+      --max-width: 600px;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #034164b9;
+      height: 100%;
+      color: white;
+      font-family: inherit;
+      overflow-x: hidden;
+      padding: 10px;
+    }
+
+    .fondo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.25;
+    }
+
+    .botonera {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      z-index: 10;
+    }
+
+    .botonera button {
+      background-color: rgba(0,0,0,0.6);
+      color: white;
+      border: 1px solid var(--accent);
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .botonera button:hover {
+      background-color: var(--accent);
+      color: black;
+      box-shadow: 0 0 10px var(--accent);
+    }
+
+    .container {
+      position: relative;
+      max-width: var(--max-width);
+      margin: 120px auto 50px auto;
+      background: rgba(53,47,47,0.75);
+      padding: 30px;
+      border-radius: var(--radius);
+      text-align: center;
+      box-shadow: 0 0 20px rgb(247,247,247);
+      animation: entrada 1.8s ease-out forwards, flotar 6s ease-in-out infinite;
+      opacity: 0;
+    }
+
+    .titulo {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 20px;
+      animation: entrada 2s ease-out forwards, brillo 6s infinite alternate;
+    }
+
+    input, textarea {
+      display: block;
+      margin: 10px auto;
+      width: 90%;
+      max-width: 500px;
+      padding: 10px;
+      font-size: 15px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    textarea { resize: vertical; min-height: 100px; }
+
+    button.submit-btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background-color: var(--accent);
+      color: white;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+    }
+
+    button.submit-btn:hover {
+      background-color: #0091ad;
+    }
+
+    @keyframes entrada {
+      0% { transform: translateY(-50px) scale(0.5); opacity: 0; }
+      100% { transform: translateY(0) scale(1); opacity: 1; }
+    }
+
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes brillo {
+      0% { text-shadow: 0 0 5px #021a15, 0 0 10px #02130f; }
+      100% { text-shadow: 0 0 15px #031411, 0 0 30px #011612; }
+    }
+
+    /* 📱 Adaptación para celulares */
+    @media (max-width:480px){
+      .container {
+        margin-top: 100px;
+        padding: 20px;
+        box-shadow: 0 0 15px rgba(247,247,247,0.8);
+      }
+      .titulo {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+      }
+      input, textarea {
+        width: 95%;
+        font-size: 14px;
+        padding: 8px;
+      }
+      button.submit-btn {
+        width: 90%;
+        font-size: 15px;
+        padding: 10px;
+      }
+      .botonera {
+        position: relative;
+        justify-content: center;
+        top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <img class="fondo" src="src/image/fondo2.jpg" alt="Fondo">
+
+  <!-- Botonera -->
+  <div class="botonera">
+    <button onclick="location.href='principal.html'">Inicio</button>
+    <button onclick="location.href='sobre.html'">Perfil del creador</button>
+    <button onclick="location.href='manualix.html'">ManualiX App</button>
+    <button onclick="location.href='tutoriales.html'">Tutoriales</button>
+    <button onclick="location.href='contacto.html'">Contactos</button>
+  </div>
+
+  <!-- Contenedor principal -->
+  <div class="container">
+    <h1 class="titulo">Contactos</h1>
+
+    <p>Cualquier consulta estaremos a la orden</p>
+
+    <form id="formWhatsApp">
+      <input type="text" id="nombre" placeholder="Tu nombre" required>
+      <input type="email" id="email" placeholder="Tu correo (opcional)">
+      <textarea id="mensaje" placeholder="Tu mensaje" required></textarea>
+      <button type="submit" class="submit-btn">Enviar por WhatsApp</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("formWhatsApp").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const numero = "59891947036"; // tu número
+      const nombre  = document.getElementById("nombre").value;
+      const email   = document.getElementById("email").value;
+      const mensaje = document.getElementById("mensaje").value;
+      let texto = `Hola, soy ${nombre}.`;
+      if (email) texto += ` Mi correo es: ${email}.`;
+      texto += `\n${mensaje}`;
+      const textoCodificado = encodeURIComponent(texto);
+      window.open(`https://wa.me/${numero}?text=${textoCodificado}`, "_blank");
+    });
+  </script>
+</body>
+</html>

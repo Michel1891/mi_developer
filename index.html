@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 🔹 hace que escale en móviles -->
+  <title>Iniciar sesión</title>
+  <style>
+    body {
+      background-color: #034164b9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+
+    .container {
+      background: rgba(53, 47, 47, 0.75);
+      padding: 40px;
+      border-radius: 15px;
+      max-width: 300px;
+      width: 100%;
+      box-shadow: 0 0 20px rgb(247, 247, 247);
+      text-align: center;
+    }
+
+    .logo {
+      width: 250px;
+      height: auto;
+      margin-bottom: 20px;
+      animation: aparecerZoom 2s ease-out forwards, flotar 6s ease-in-out infinite;
+      opacity: 0;
+    }
+
+    @keyframes aparecerZoom {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .titulo {
+      font-size: 2rem;
+      color: #e0eaec;
+      text-shadow: 0 0 10px #00b4d8;
+      margin-bottom: 20px;
+    }
+
+    input, button {
+      width: 90%;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 8px;
+    }
+
+    input {
+      background: #a8d6c8;
+      color: #0f0101;
+    }
+
+    button {
+      background: #edf2f3;
+      color: #010e0b;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #0091ad;
+    }
+
+    hr {
+      margin: 20px 0;
+      border: 1px solid #333;
+    }
+
+    /* 📱 Ajuste REAL para móviles */
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+        height: auto;
+      }
+
+      .container {
+        max-width: 100%; /* 👉 ocupa todo el ancho disponible */
+        width: 100%;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(255,255,255,0.3);
+      }
+
+      .logo {
+        width: 180px;
+      }
+
+      .titulo {
+        font-size: 1.6rem;
+      }
+
+      input, button {
+        width: 100%;
+        font-size: 1rem;
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="src/image/logo1.png" alt="Logo" class="logo">
+    <h1 class="titulo">Iniciar sesión</h1>
+
+    <form id="loginForm">
+      <input type="email" name="email" placeholder="Email" required><br>
+      <input type="password" name="password" placeholder="Contraseña" required><br>
+      <button type="submit">Entrar</button>
+    </form>
+
+    <h3>Registrarse</h3>
+    <form id="registerForm">
+      <input type="email" name="email" placeholder="Email" required><br>
+      <input type="password" name="password" placeholder="Contraseña" required><br>
+      <button type="submit">Registrar</button>
+    </form>
+
+    <hr>
+    <button id="googleBtn">Iniciar sesión con Google</button>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { 
+      getAuth, 
+      signInWithEmailAndPassword, 
+      createUserWithEmailAndPassword, 
+      GoogleAuthProvider, 
+      signInWithPopup 
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+    const firebaseConfig = {
+  apiKey: "AIzaSyB_0_PIpdto8u1touBZNVoHiago6M2akoc",
+  authDomain: "manualix-1d0fc.firebaseapp.com",
+  projectId: "manualix-1d0fc",
+  storageBucket: "manualix-1d0fc.appspot.com",
+  messagingSenderId: "847110946549",
+  appId: "1:847110946549:web:0a507851fef1d9df6ccfbc",
+  measurementId: "G-88SXXJDLND"
+   };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = e.target.email.value;
+      const pass = e.target.password.value;
+      try {
+        await signInWithEmailAndPassword(auth, email, pass);
+        window.location.href = "principal.html";
+      } catch {
+        alert("Usuario no encontrado o contraseña incorrecta");
+      }
+    });
+
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = e.target.email.value;
+      const pass = e.target.password.value;
+      try {
+        await createUserWithEmailAndPassword(auth, email, pass);
+        alert("Registro exitoso");
+        window.location.href = "principal.html";
+      } catch {
+        alert("Error al registrar el usuario");
+      }
+    });
+
+    document.getElementById("googleBtn").addEventListener("click", async () => {
+      try {
+        await signInWithPopup(auth, provider);
+        window.location.href = "principal.html";
+      } catch {
+        alert("Error al iniciar sesión con Google");
+      }
+    });
+  </script>
+</body>
+</html>

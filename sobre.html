@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sobre Michel Miranda</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 🧩 Favicon -->
+  <link rel="icon" href="src/image/logo1.png" type="image/png">
+  <link rel="apple-touch-icon" href="src/image/logo1.png">
+
+  <!-- 🎨 Estilos -->
+  <style>
+    body {
+      background-color: #034164b9;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      flex-direction: column;
+      height: auto;
+      min-height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      overflow-x: hidden;
+      padding: 10px;
+    }
+
+    .fondo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      opacity: 0.25;
+    }
+
+    .botonera {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      z-index: 10;
+    }
+
+    .botonera button {
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: 1px solid #00b4d8;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .botonera button:hover {
+      background-color: #00b4d8;
+      color: black;
+      box-shadow: 0 0 10px #00b4d8;
+    }
+
+    .container {
+      background: rgba(53, 47, 47, 0.8);
+      padding: 40px;
+      border-radius: 15px;
+      max-width: 900px;
+      width: 90%;
+      box-shadow: 0 0 20px rgb(247, 247, 247);
+      text-align: justify;
+      margin: 120px auto 40px auto;
+      animation: aparecerZoom 2s ease-out forwards;
+      opacity: 0;
+      color: #f2f2f2;
+      line-height: 1.7;
+    }
+
+    .container h1 {
+      text-align: center;
+      color: #00b4d8;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00b4d8;
+    }
+
+    .container h2 {
+      color: #00b4d8;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    @keyframes aparecerZoom {
+      0% { transform: scale(0.95); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .certificados {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .certificado {
+      background: rgba(0, 180, 216, 0.2);
+      border: 1px solid #00b4d8;
+      border-radius: 15px;
+      width: 280px;
+      text-align: center;
+      padding: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .certificado:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00b4d8;
+    }
+
+    .certificado img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .certificado p {
+      font-size: 0.95rem;
+      color: #fff;
+    }
+
+    /* 📱 Adaptación para celulares */
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px;
+        margin-top: 100px;
+      }
+
+      .botonera {
+        position: relative;
+        justify-content: center;
+        top: 10px;
+      }
+
+      .certificados {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .certificado {
+        width: 95%;
+      }
+
+      .container h1 {
+        font-size: 1.6rem;
+      }
+
+      .container h2 {
+        font-size: 1.3rem;
+      }
+
+      .container p {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Fondo -->
+  <img class="fondo" src="src/image/fondo2.jpg" alt="Fondo decorativo">
+
+  <!-- Botonera -->
+  <div class="botonera">
+    <button onclick="location.href='principal.html'">Inicio</button>
+    <button onclick="location.href='sobre.html'">Perfil del creador</button>
+    <button onclick="location.href='manualix.html'">ManualiX App</button>
+    <button onclick="location.href='tutoriales.html'">Tutoriales</button>
+    <button onclick="location.href='contacto.html'">Contactos</button>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="container">
+    <h1>👨‍💻 Perfil del Creador</h1>
+    <p>
+      Soy <strong>Michel Miranda</strong>, técnico especializado en sistemas de alarma y CCTV, con más de una década de experiencia en el rubro de la seguridad electrónica y la programación.
+    </p>
+
+    <p>
+      En el año <strong>2012</strong> obtuve mi título de <strong>Técnico en Instalación de Alarmas para Casas y Autos</strong> en la <em>Escuela Ma-Pa</em>.
+      Desde entonces, trabajé hasta el <strong>2020</strong> en la empresa multinacional <strong>G4S Security Service</strong>,
+      donde adquirí experiencia en instalación, mantenimiento y soporte de sistemas de seguridad.
+      Posteriormente, pasé a formar parte de <strong>ADT Security Service</strong>, donde me desempeño desde <strong>2020 hasta la actualidad</strong>.
+    </p>
+
+    <p>
+      En paralelo, en el <strong>2018</strong> comencé mi formación en programación.
+      En <strong>2025</strong> me recibí como <strong>Programador Full Stack</strong> en el <em>Instituto Aldey</em>, presentando mi proyecto final: <strong>ManualiX App</strong>.
+    </p>
+
+    <p>
+      Además, desde el <strong>2019</strong> descubrí mi vocación por la enseñanza.
+      Comencé dictando clases en la <em>Escuela de Oficios Ma-Pa</em>, y en <strong>2020</strong> me incorporé como docente en la <em>Escuela de Oficios IADE</em>.
+      En 2025 obtuve mi título como <strong>Docente certificado por INEFOP</strong>.
+    </p>
+
+    <p>
+      Mi objetivo profesional es seguir creciendo como técnico, programador y docente, impulsando proyectos tecnológicos que ayuden a capacitar y modernizar el sector de la seguridad electrónica.
+    </p>
+
+    <h2>🎓 Certificaciones y Títulos</h2>
+    <div class="certificados">
+      <div class="certificado">
+        <img src="src/image/Programacion.jpeg" alt="Diploma Técnico en Programación Full Stack">
+        <p><strong>Técnico en Programación Full Stack</strong><br>Instituto Aldey – 2025</p>
+      </div>
+
+      <div class="certificado">
+        <img src="src/image/alarma y cctv.jpeg" alt="Diploma Instalación de Alarmas y CCTV">
+        <p><strong>Instalación de Alarmas y CCTV</strong><br>Escuela Ma-Pa – 2012</p>
+      </div>
+
+      <div class="certificado">
+        <img src="src/image/docente.jpeg" alt="Diploma de Docencia en Escuela de Oficios">
+        <p><strong>Docente en Escuela de Oficios</strong><br>INEFOP – 2025</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
