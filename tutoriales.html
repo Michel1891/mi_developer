@@ -8,62 +8,58 @@
     body {
       background-color: #034164b9;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      min-height: 100vh;
       margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
+      font-family: Arial, sans-serif;
       color: white;
-      padding: 20px;
-      box-sizing: border-box;
+      padding: 20px 0;
     }
 
+    /* Contenedor principal */
     .container {
-      background: rgba(40, 40, 40, 0.85);
-      padding: 30px;
-      border-radius: 18px;
+      background: rgba(53, 47, 47, 0.75);
+      padding: 40px;
+      border-radius: 15px;
+      max-width: 350px;
       width: 100%;
-      max-width: 400px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgb(247, 247, 247);
       text-align: center;
-      animation: fadeIn 0.8s ease-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      margin-bottom: 20px;
     }
 
     .logo {
-      width: 200px;
+      width: 250px;
       margin-bottom: 15px;
+      animation: aparecerZoom 1s ease-out forwards;
+      opacity: 0;
+    }
+
+    @keyframes aparecerZoom {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
     }
 
     h1 {
       font-size: 1.8rem;
       color: #e0eaec;
       text-shadow: 0 0 10px #00b4d8;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     button {
       background: #00b4d8;
       color: #fff;
-      padding: 14px;
+      padding: 10px 15px;
       border: none;
-      border-radius: 10px;
+      border-radius: 6px;
       cursor: pointer;
-      margin-top: 10px;
-      width: 100%;
-      font-size: 1rem;
-      font-weight: 600;
-      box-shadow: 0 3px 8px rgba(0, 180, 216, 0.4);
-      transition: transform 0.2s, background 0.3s;
+      margin: 10px;
+      transition: background 0.3s;
     }
 
     button:hover {
       background: #0091ad;
-      transform: scale(1.03);
     }
 
     #mensaje {
@@ -81,44 +77,48 @@
       margin-top: 20px;
     }
 
-    video {
+    /* Contenedor de videos */
+    .videos-container {
+      max-width: 300px;
       width: 100%;
-      border-radius: 10px;
+      margin: 0 auto 30px auto;
+      padding: 20px;
+      background: rgba(53, 47, 47, 0.75);
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgb(247, 247, 247);
+      color: white;
+      opacity: 0;
+      transition: opacity 0.7s ease-in;
+    }
+
+    .videos-container.show {
+      opacity: 1;
+    }
+
+    .videos-container h3 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    .videos-container video {
+      width: 100%;
+      border-radius: 8px;
       margin: 10px 0;
       box-shadow: 0 0 15px rgba(0, 180, 216, 0.5);
     }
 
-    a {
-      color: #00b4d8;
-      text-decoration: none;
-    }
-
-    /* ✅ Adaptación móvil mejorada */
+    /* 📱 Adaptación móvil */
     @media (max-width: 480px) {
-      body {
-        padding: 10px;
-      }
-      .container {
-        padding: 25px 20px;
-        max-width: 100%;
-      }
-      .logo {
-        width: 160px;
-      }
-      h1 {
-        font-size: 1.4rem;
-      }
-      button {
-        font-size: 0.95rem;
-        padding: 12px;
-      }
-      #mensaje {
-        font-size: 0.9rem;
-      }
+      .container { max-width: 100%; padding: 25px; }
+      .logo { width: 180px; }
+      h1 { font-size: 1.5rem; }
+      button { width: 100%; font-size: 1rem; }
+
+      .videos-container { padding: 15px; margin: 15px 0; }
+      .videos-container h3 { font-size: 1.1rem; }
     }
   </style>
 </head>
-
 <body>
   <div class="container">
     <img src="src/image/logo4.png" alt="Logo" class="logo">
@@ -133,21 +133,23 @@
 
     <div id="bloqueo" class="bloqueado" style="display:none;">
       ⚠️ Tu suscripción no está activa.<br>
-      <a href="https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=80b9657a5e7040b794c98f5d55ce4a6e">
-        💳 Activar Suscripción
+      <a href="https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=80b9657a5e7040b794c98f5d55ce4a6e"
+         style="color:#00b4d8; text-decoration:none; font-weight:bold;">
+         💳 Activar Suscripción
       </a>
     </div>
+  </div>
 
-    <div id="contenido" style="display:none;">
-      <h3>Video 1: Introducción</h3>
-      <video controls><source src="video1.mp4" type="video/mp4"></video>
+  <!-- Nuevo contenedor para los videos -->
+  <div class="videos-container" id="contenido">
+    <h3>Video 1: Introducción</h3>
+    <video controls><source src="src/raw/video1.mp4" type="video/mp4"></video>
 
-      <h3>Video 2: Producción avanzada</h3>
-      <video controls><source src="video2.mp4" type="video/mp4"></video>
+    <h3>Video 2: Programar hora y fecha</h3>
+    <video controls><source src="src/raw/video2.mp4" type="video/mp4"></video>
 
-      <h3>Video 3: Tips y Trucos</h3>
-      <video controls><source src="video3.mp4" type="video/mp4"></video>
-    </div>
+    <h3>Video 3: Programación de zonas</h3>
+    <video controls><source src="src/raw/video3.mp4" type="video/mp4"></video>
   </div>
 
   <!-- 🔥 Firebase -->
@@ -213,15 +215,18 @@
         if (data.activa) {
           mensaje.textContent = "✅ Suscripción verificada. ¡Disfrutá los tutoriales!";
           contenido.style.display = "block";
+          setTimeout(() => contenido.classList.add("show"), 50); // fade-in
           bloqueo.style.display = "none";
         } else {
           mensaje.textContent = "";
           contenido.style.display = "none";
+          contenido.classList.remove("show");
           bloqueo.style.display = "block";
         }
       } else {
         mensaje.textContent = "";
         contenido.style.display = "none";
+        contenido.classList.remove("show");
         bloqueo.style.display = "block";
       }
     });
@@ -235,3 +240,4 @@
   </script>
 </body>
 </html>
+
