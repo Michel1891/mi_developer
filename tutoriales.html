@@ -13,7 +13,6 @@
       padding-top: 100px;
     }
 
-    /* 🔹 Header fijo */
     header {
       position: fixed;
       top: 0;
@@ -26,7 +25,6 @@
       padding: 10px 20px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
       z-index: 1000;
-      backdrop-filter: blur(6px);
       flex-wrap: wrap;
     }
 
@@ -84,7 +82,6 @@
       transform: scale(1.05);
     }
 
-    /* Contenedor principal */
     .container {
       background: rgba(53, 47, 47, 0.75);
       padding: 40px;
@@ -145,7 +142,6 @@
       margin-top: 20px;
     }
 
-    /* Contenedor de videos */
     .videos-container {
       max-width: 900px;
       width: 90%;
@@ -157,12 +153,9 @@
       color: white;
       opacity: 0;
       transition: opacity 0.7s ease-in;
-      display: none;
     }
 
-    .videos-container.show {
-      opacity: 1;
-    }
+    .videos-container.show { opacity: 1; }
 
     .videos-grid {
       display: grid;
@@ -185,30 +178,18 @@
       box-shadow: 0 0 20px rgba(0, 180, 216, 0.8);
     }
 
-    .video-card h3 {
-      margin-bottom: 10px;
-      color: #00b4d8;
-    }
+    .video-card h3 { color: #00b4d8; margin-bottom: 10px; }
+    .video-card video { width: 100%; border-radius: 10px; }
 
-    .video-card video {
-      width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 180, 216, 0.5);
-    }
-
-    /* 📱 Responsive */
     @media (max-width: 480px) {
       header { flex-direction: column; text-align: center; }
-      header h1 { font-size: 1.2rem; }
-      #btnLogout { margin-top: 10px; width: 100%; }
       .container { max-width: 100%; padding: 25px; }
       .logo { width: 180px; }
-      button { width: 100%; font-size: 1rem; }
+      button { width: 100%; }
     }
   </style>
 </head>
 <body>
-  <!-- 🔹 Header -->
   <header>
     <div class="header-left">
       <img src="src/image/logo4.png" alt="Logo" class="logo-header">
@@ -223,7 +204,6 @@
     </div>
   </header>
 
-  <!-- 🔸 Contenedor de acceso -->
   <div class="container">
     <img src="src/image/logo4.png" alt="Logo" class="logo">
     <h2>Panel de acceso 🎬</h2>
@@ -239,33 +219,50 @@
   </div>
 
   <!-- 🔹 BLOQUE 1 -->
-  <div class="videos-container" id="bloque1">
-    <h2>🎥 Bloque 1 – Introducción y configuración básica</h2>
+  <div class="videos-container" id="contenido">
+    <h2>🎥 Bloque 1 – Introducción</h2>
     <div class="videos-grid">
-      <div class="video-card"><h3>Video 1: Introducción</h3><video controls><source src="src/raw/video1.mp4" type="video/mp4"></video></div>
-      <div class="video-card"><h3>Video 2: Configuración inicial</h3><video controls><source src="src/raw/video2.mp4" type="video/mp4"></video></div>
+      <div class="video-card">
+        <h3>Video 1: Introducción</h3>
+        <video controls><source src="src/raw/video1.mp4" type="video/mp4"></video>
+      </div>
+      <div class="video-card">
+        <h3>Video 2: Configuración inicial</h3>
+        <video controls><source src="src/raw/video2.mp4" type="video/mp4"></video>
+      </div>
     </div>
   </div>
 
   <!-- 🔹 BLOQUE 2 -->
-  <div class="videos-container" id="bloque2">
+  <div class="videos-container" id="bloque2" style="display:none;">
     <h2>🔧 Bloque 2 – Programación avanzada</h2>
     <div class="videos-grid">
-      <div class="video-card"><h3>Video 3: Programación de zonas</h3><video controls><source src="src/raw/video3.mp4" type="video/mp4"></video></div>
-      <div class="video-card"><h3>Video 4: Comunicación y reportes</h3><video controls><source src="src/raw/video4.mp4" type="video/mp4"></video></div>
+      <div class="video-card">
+        <h3>Video 3: Zonas</h3>
+        <video controls><source src="src/raw/video3.mp4" type="video/mp4"></video>
+      </div>
+      <div class="video-card">
+        <h3>Video 4: Comunicación</h3>
+        <video controls><source src="src/raw/video4.mp4" type="video/mp4"></video>
+      </div>
     </div>
   </div>
 
   <!-- 🔹 BLOQUE 3 -->
-  <div class="videos-container" id="bloque3">
-    <h2>⚙️ Bloque 3 – Mantenimiento y solución de problemas</h2>
+  <div class="videos-container" id="bloque3" style="display:none;">
+    <h2>⚙️ Bloque 3 – Mantenimiento</h2>
     <div class="videos-grid">
-      <div class="video-card"><h3>Video 5: Diagnóstico de fallas</h3><video controls><source src="src/raw/video5.mp4" type="video/mp4"></video></div>
-      <div class="video-card"><h3>Video 6: Actualización de firmware</h3><video controls><source src="src/raw/video6.mp4" type="video/mp4"></video></div>
+      <div class="video-card">
+        <h3>Video 5: Diagnóstico</h3>
+        <video controls><source src="src/raw/video5.mp4" type="video/mp4"></video>
+      </div>
+      <div class="video-card">
+        <h3>Video 6: Actualización</h3>
+        <video controls><source src="src/raw/video6.mp4" type="video/mp4"></video>
+      </div>
     </div>
   </div>
 
-  <!-- 🔥 Firebase con validación automática por token -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
     import { getAuth, signInWithCustomToken, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
@@ -292,20 +289,22 @@
     const userAvatar = document.getElementById("userAvatar");
     const mensaje = document.getElementById("mensaje");
     const bloqueo = document.getElementById("bloqueo");
-    const bloques = [document.getElementById("bloque1"), document.getElementById("bloque2"), document.getElementById("bloque3")];
+    const contenido = document.getElementById("contenido");
+    const bloque2 = document.getElementById("bloque2");
+    const bloque3 = document.getElementById("bloque3");
     const btnSuscripcion = document.getElementById("btnSuscripcion");
     const btnIngresar = document.getElementById("btnIngresar");
     const btnLogout = document.getElementById("btnLogout");
 
     if (token) {
       signInWithCustomToken(auth, token)
-        .then(() => console.log("✅ Sesión iniciada automáticamente desde app"))
-        .catch(err => console.error("❌ Error validando token:", err));
+        .then(() => console.log("✅ Sesión iniciada desde Android"))
+        .catch(err => console.error("Error validando token:", err));
     }
 
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (!user) return;
-      userEmailText.textContent = "Bienvenido Técnico instalador: " + user.email;
+      userEmailText.textContent = "Bienvenido: " + user.email;
       userEmailHeader.textContent = "👷‍♂️ Técnico: " + user.email;
       if (user.photoURL) userAvatar.src = user.photoURL;
     });
@@ -316,33 +315,42 @@
 
     btnIngresar.addEventListener("click", async () => {
       const user = auth.currentUser;
-      if (!user) return;
+      if (!user) return alert("Debe iniciar sesión nuevamente.");
+
       const ref = doc(db, "suscripciones", user.email);
       const snap = await getDoc(ref);
+
       if (snap.exists() && snap.data().activa) {
-        mensaje.textContent = "✅ Suscripción verificada. ¡Disfrutá los tutoriales!";
+        mensaje.textContent = "✅ Suscripción verificada.";
+        [contenido, bloque2, bloque3].forEach(b => {
+          b.style.display = "block";
+          setTimeout(() => b.classList.add("show"), 100);
+        });
         bloqueo.style.display = "none";
-        bloques.forEach(b => { b.style.display = "block"; setTimeout(() => b.classList.add("show"), 100); });
       } else {
         mensaje.textContent = "";
         bloqueo.style.display = "block";
-        bloques.forEach(b => { b.style.display = "none"; b.classList.remove("show"); });
       }
     });
 
-    btnLogout.addEventListener("click", async () => { await signOut(auth); alert("Sesión cerrada correctamente."); });
+    btnLogout.addEventListener("click", async () => {
+      await signOut(auth);
+      alert("Sesión cerrada correctamente.");
+      window.location.href = "index.html";
+    });
 
     // ▶️ Solo un video activo
     const videos = document.querySelectorAll("video");
     videos.forEach(video => {
       video.addEventListener("play", () => {
-        videos.forEach(v => { if (v !== video && !v.paused) v.pause(); });
+        videos.forEach(v => {
+          if (v !== video && !v.paused) v.pause();
+        });
       });
     });
   </script>
 </body>
 </html>
-
 
 
 
