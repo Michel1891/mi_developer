@@ -157,6 +157,7 @@
       color: white;
       opacity: 0;
       transition: opacity 0.7s ease-in;
+      display: none;
     }
 
     .videos-container.show {
@@ -197,10 +198,7 @@
 
     /* 📱 Responsive */
     @media (max-width: 480px) {
-      header {
-        flex-direction: column;
-        text-align: center;
-      }
+      header { flex-direction: column; text-align: center; }
       header h1 { font-size: 1.2rem; }
       #btnLogout { margin-top: 10px; width: 100%; }
       .container { max-width: 100%; padding: 25px; }
@@ -215,7 +213,7 @@
     <div class="header-left">
       <img src="src/image/logo4.png" alt="Logo" class="logo-header">
       <div class="user-info">
-        <h1>Tutoriales del Sistema de alarmas </h1>
+        <h1>Tutoriales Premium</h1>
         <span id="userEmailHeader">👷‍♂️ Técnico: verificando...</span>
       </div>
     </div>
@@ -229,72 +227,49 @@
   <div class="container">
     <img src="src/image/logo4.png" alt="Logo" class="logo">
     <h2>Panel de acceso 🎬</h2>
-
     <p id="userEmailText">Verificando sesión...</p>
     <p id="mensaje"></p>
-
     <button id="btnSuscripcion">💳 Suscribirme</button>
     <button id="btnIngresar">🚪 Ingresar</button>
-
     <div id="bloqueo" class="bloqueado" style="display:none;">
       ⚠️ Tu suscripción no está activa.<br>
       <a href="https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=80b9657a5e7040b794c98f5d55ce4a6e"
-         style="color:#00b4d8; text-decoration:none; font-weight:bold;">
-         💳 Activar Suscripción
-      </a>
+         style="color:#00b4d8; text-decoration:none; font-weight:bold;">💳 Activar Suscripción</a>
     </div>
   </div>
 
   <!-- 🔹 BLOQUE 1 -->
-  <div class="videos-container" id="contenido">
+  <div class="videos-container" id="bloque1">
     <h2>🎥 Bloque 1 – Introducción y configuración básica</h2>
     <div class="videos-grid">
-      <div class="video-card">
-        <h3>Video 1: Introducción</h3>
-        <video controls><source src="src/raw/video1.mp4" type="video/mp4"></video>
-      </div>
-      <div class="video-card">
-        <h3>Video 2: Configuración inicial</h3>
-        <video controls><source src="src/raw/video2.mp4" type="video/mp4"></video>
-      </div>
+      <div class="video-card"><h3>Video 1: Introducción</h3><video controls><source src="src/raw/video1.mp4" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Video 2: Configuración inicial</h3><video controls><source src="src/raw/video2.mp4" type="video/mp4"></video></div>
     </div>
   </div>
 
   <!-- 🔹 BLOQUE 2 -->
-  <div class="videos-container" id="bloque2" style="display:none;">
+  <div class="videos-container" id="bloque2">
     <h2>🔧 Bloque 2 – Programación avanzada</h2>
     <div class="videos-grid">
-      <div class="video-card">
-        <h3>Video 3: Programación de zonas</h3>
-        <video controls><source src="src/raw/video3.mp4" type="video/mp4"></video>
-      </div>
-      <div class="video-card">
-        <h3>Video 4: Comunicación y reportes</h3>
-        <video controls><source src="src/raw/video4.mp4" type="video/mp4"></video>
-      </div>
+      <div class="video-card"><h3>Video 3: Programación de zonas</h3><video controls><source src="src/raw/video3.mp4" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Video 4: Comunicación y reportes</h3><video controls><source src="src/raw/video4.mp4" type="video/mp4"></video></div>
     </div>
   </div>
 
   <!-- 🔹 BLOQUE 3 -->
-  <div class="videos-container" id="bloque3" style="display:none;">
+  <div class="videos-container" id="bloque3">
     <h2>⚙️ Bloque 3 – Mantenimiento y solución de problemas</h2>
     <div class="videos-grid">
-      <div class="video-card">
-        <h3>Video 5: Diagnóstico de fallas</h3>
-        <video controls><source src="src/raw/video5.mp4" type="video/mp4"></video>
-      </div>
-      <div class="video-card">
-        <h3>Video 6: Actualización de firmware</h3>
-        <video controls><source src="src/raw/video6.mp4" type="video/mp4"></video>
-      </div>
+      <div class="video-card"><h3>Video 5: Diagnóstico de fallas</h3><video controls><source src="src/raw/video5.mp4" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Video 6: Actualización de firmware</h3><video controls><source src="src/raw/video6.mp4" type="video/mp4"></video></div>
     </div>
   </div>
 
-  <!-- 🔥 Firebase -->
+  <!-- 🔥 Firebase con validación automática por token -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import { getAuth, signInWithCustomToken, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyB_0_PIpdto8u1touBZNVoHiago6M2akoc",
@@ -309,81 +284,65 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("token");
+
     const userEmailText = document.getElementById("userEmailText");
     const userEmailHeader = document.getElementById("userEmailHeader");
     const userAvatar = document.getElementById("userAvatar");
     const mensaje = document.getElementById("mensaje");
     const bloqueo = document.getElementById("bloqueo");
-    const contenido = document.getElementById("contenido");
-    const bloque2 = document.getElementById("bloque2");
-    const bloque3 = document.getElementById("bloque3");
+    const bloques = [document.getElementById("bloque1"), document.getElementById("bloque2"), document.getElementById("bloque3")];
     const btnSuscripcion = document.getElementById("btnSuscripcion");
     const btnIngresar = document.getElementById("btnIngresar");
     const btnLogout = document.getElementById("btnLogout");
 
+    if (token) {
+      signInWithCustomToken(auth, token)
+        .then(() => console.log("✅ Sesión iniciada automáticamente desde app"))
+        .catch(err => console.error("❌ Error validando token:", err));
+    }
+
     onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        alert("Sesión expirada. Vuelva a iniciar sesión.");
-        window.location.href = "index.html";
-        return;
-      }
+      if (!user) return;
       userEmailText.textContent = "Bienvenido Técnico instalador: " + user.email;
       userEmailHeader.textContent = "👷‍♂️ Técnico: " + user.email;
-
       if (user.photoURL) userAvatar.src = user.photoURL;
     });
 
     btnSuscripcion.addEventListener("click", () => {
-      const url = "https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=80b9657a5e7040b794c98f5d55ce4a6e";
-      window.open(url, "_blank");
-      alert("Completá la suscripción y luego presioná 'Ingresar'.");
+      window.open("https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=80b9657a5e7040b794c98f5d55ce4a6e", "_blank");
     });
 
     btnIngresar.addEventListener("click", async () => {
       const user = auth.currentUser;
-      if (!user) {
-        alert("Debe iniciar sesión nuevamente.");
-        window.location.href = "index.html";
-        return;
-      }
-
+      if (!user) return;
       const ref = doc(db, "suscripciones", user.email);
       const snap = await getDoc(ref);
-
       if (snap.exists() && snap.data().activa) {
         mensaje.textContent = "✅ Suscripción verificada. ¡Disfrutá los tutoriales!";
-        [contenido, bloque2, bloque3].forEach(b => {
-          b.style.display = "block";
-          setTimeout(() => b.classList.add("show"), 100);
-        });
         bloqueo.style.display = "none";
+        bloques.forEach(b => { b.style.display = "block"; setTimeout(() => b.classList.add("show"), 100); });
       } else {
         mensaje.textContent = "";
-        [contenido, bloque2, bloque3].forEach(b => {
-          b.style.display = "none";
-          b.classList.remove("show");
-        });
         bloqueo.style.display = "block";
+        bloques.forEach(b => { b.style.display = "none"; b.classList.remove("show"); });
       }
     });
 
-    btnLogout.addEventListener("click", async () => {
-      await signOut(auth);
-      alert("Sesión cerrada correctamente.");
-      window.location.href = "index.html";
-    });
+    btnLogout.addEventListener("click", async () => { await signOut(auth); alert("Sesión cerrada correctamente."); });
 
     // ▶️ Solo un video activo
     const videos = document.querySelectorAll("video");
     videos.forEach(video => {
       video.addEventListener("play", () => {
-        videos.forEach(v => {
-          if (v !== video && !v.paused) v.pause();
-        });
+        videos.forEach(v => { if (v !== video && !v.paused) v.pause(); });
       });
     });
   </script>
 </body>
 </html>
+
+
 
 
