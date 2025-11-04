@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Tutoriales del Sistema de alarmas</title>
   <style>
     body {
@@ -18,194 +18,109 @@
       top: 0;
       left: 0;
       width: 100%;
-      background: rgba(3, 65, 100, 0.95);
+      background: rgba(3,65,100,0.95);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 10px 20px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
       z-index: 1000;
       flex-wrap: wrap;
     }
 
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .logo-header {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-    }
-
-    .user-info {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.2;
-    }
-
-    .user-info h1 {
-      font-size: 1.4rem;
-      color: #e0eaec;
-      text-shadow: 0 0 10px #00b4d8;
-      margin: 0;
-    }
-
-    #userEmailHeader {
-      font-size: 0.9rem;
-      color: #bde0fe;
-    }
-
-    .user-avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: 2px solid #00b4d8;
-      object-fit: cover;
-    }
+    .header-left { display:flex; align-items:center; gap:15px; }
+    .logo-header { width:50px; height:50px; border-radius:50%; }
+    .user-info { display:flex; flex-direction:column; line-height:1.2; }
+    .user-info h1 { font-size:1.4rem; color:#e0eaec; margin:0; text-shadow:0 0 10px #00b4d8; }
+    #userEmailHeader { font-size:0.9rem; color:#bde0fe; }
+    .user-avatar { width:50px; height:50px; border-radius:50%; border:2px solid #00b4d8; object-fit:cover; }
 
     #btnLogout {
-      background: #00b4d8;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 15px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
+      background:#00b4d8; color:#fff; border:none; border-radius:6px; padding:8px 15px;
+      font-size:1rem; cursor:pointer; transition:background .3s, transform .2s;
     }
-
-    #btnLogout:hover {
-      background: #0091ad;
-      transform: scale(1.05);
-    }
+    #btnLogout:hover { background:#0091ad; transform:scale(1.05); }
 
     .container {
-      background: rgba(53, 47, 47, 0.75);
+      background: rgba(53,47,47,0.75);
       padding: 40px;
-      border-radius: 15px;
-      max-width: 350px;
-      width: 90%;
-      box-shadow: 0 0 20px rgb(247, 247, 247);
-      text-align: center;
-      margin: 20px auto;
+      border-radius:15px;
+      max-width:350px;
+      width:90%;
+      box-shadow: 0 0 20px rgb(247,247,247);
+      text-align:center;
+      margin:20px auto;
     }
 
-    .logo {
-      width: 250px;
-      margin-bottom: 15px;
-      animation: aparecerZoom 1s ease-out forwards;
-      opacity: 0;
-    }
+    .logo { width:250px; margin-bottom:15px; animation:aparecerZoom 1s ease-out forwards; opacity:0; }
+    @keyframes aparecerZoom { 0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1} }
 
-    @keyframes aparecerZoom {
-      0% { transform: scale(0.5); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
+    h2 { text-align:center; color:#00b4d8; margin-bottom:15px; }
+    button { background:#00b4d8; color:#fff; padding:10px 15px; border:none; border-radius:6px; cursor:pointer; margin:10px; transition:background .3s, transform .2s; }
+    button:hover { background:#0091ad; transform:scale(1.05); }
+    #mensaje { margin:15px 0; font-size:1rem; }
 
-    h2 {
-      text-align: center;
-      color: #00b4d8;
-      margin-bottom: 15px;
-    }
-
-    button {
-      background: #00b4d8;
-      color: #fff;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin: 10px;
-      transition: background 0.3s, transform 0.2s;
-    }
-
-    button:hover {
-      background: #0091ad;
-      transform: scale(1.05);
-    }
-
-    #mensaje {
-      margin: 15px 0;
-      font-size: 1rem;
-    }
-
-    .bloqueado {
-      color: #ff6666;
-      font-weight: bold;
-      background: rgba(0,0,0,0.6);
-      display: inline-block;
-      padding: 10px 15px;
-      border-radius: 10px;
-      margin-top: 20px;
-    }
+    .bloqueado { color:#ff6666; font-weight:bold; background:rgba(0,0,0,0.6); display:inline-block; padding:10px 15px; border-radius:10px; margin-top:20px; }
 
     .videos-container {
-      max-width: 900px;
-      width: 90%;
-      margin: 0 auto 30px auto;
-      padding: 30px 20px;
-      background: rgba(53, 47, 47, 0.75);
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgb(247, 247, 247);
-      color: white;
-      opacity: 0;
-      transition: opacity 0.7s ease-in;
+      max-width: 1100px;
+      width: 92%;
+      margin: 20px auto;
+      padding: 24px;
+      background: rgba(53,47,47,0.75);
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgb(247,247,247);
+      color:white;
+      display:none;
+      opacity:0;
+      transition:opacity .6s ease;
     }
-
-    .videos-container.show { opacity: 1; }
+    .videos-container.show { display:block; opacity:1; }
 
     .videos-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap:18px;
+      margin-top:16px;
     }
 
     .video-card {
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0, 180, 216, 0.4);
-      padding: 15px;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: rgba(0,0,0,0.45);
+      border-radius:12px;
+      padding:12px;
+      box-shadow: 0 0 10px rgba(0,180,216,0.35);
+      transition: transform .25s ease, box-shadow .25s ease;
+      text-align:center;
     }
+    .video-card:hover { transform: translateY(-6px); box-shadow:0 0 20px rgba(0,180,216,0.7); }
+    .video-card h3 { color:#00b4d8; margin-bottom:8px; font-size:1rem; }
+    .video-card video { width:100%; border-radius:8px; }
 
-    .video-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 20px rgba(0, 180, 216, 0.8);
-    }
-
-    .video-card h3 { color: #00b4d8; margin-bottom: 10px; }
-    .video-card video { width: 100%; border-radius: 10px; }
-
-    @media (max-width: 480px) {
-      header { flex-direction: column; text-align: center; }
-      .container { max-width: 100%; padding: 25px; }
-      .logo { width: 180px; }
-      button { width: 100%; }
+    @media (max-width:480px) {
+      header { flex-direction:column; text-align:center; }
+      .container { max-width:100%; padding:22px; }
+      .logo{ width:180px; }
+      button{ width:100%; }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="header-left">
-      <img src="src/image/logo4.png" alt="Logo" class="logo-header">
+      <img src="src/image/logo4.png" alt="Logo" class="logo-header"/>
       <div class="user-info">
         <h1>Tutoriales Premium</h1>
         <span id="userEmailHeader">👷‍♂️ Técnico: verificando...</span>
       </div>
     </div>
     <div class="header-right">
-      <img id="userAvatar" class="user-avatar" src="src/image/default-user.png" alt="Avatar">
+      <img id="userAvatar" class="user-avatar" src="src/image/default-user.png" alt="Avatar"/>
       <button id="btnLogout">Cerrar sesión</button>
     </div>
   </header>
 
   <div class="container">
-    <img src="src/image/logo4.png" alt="Logo" class="logo">
+    <img src="src/image/logo4.png" alt="Logo" class="logo"/>
     <h2>Panel de acceso 🎬</h2>
     <p id="userEmailText">Verificando sesión...</p>
     <p id="mensaje"></p>
@@ -218,56 +133,51 @@
     </div>
   </div>
 
-  <!-- 🔹 BLOQUE 1 -->
-  <div class="videos-container" id="contenido">
-    <h2>🎥 Bloque 1 – Introducción</h2>
+  <!-- BLOQUE 1: videos 1..6 -->
+  <div class="videos-container" id="bloque1">
+    <h2>🎥 Bloque 1 – Introducción y configuración básica</h2>
     <div class="videos-grid">
-      <div class="video-card">
-        <h3>Video 1: Introducción</h3>
-        <video controls><source src="src/raw/video1.mp4" type="video/mp4"></video>
-      </div>
-      <div class="video-card">
-        <h3>Video 2: Configuración inicial</h3>
-        <video controls><source src="src/raw/video2.mp4" type="video/mp4"></video>
-      </div>
+      <div class="video-card"><h3>Video 1</h3><video controls data-videoid="video1"><source src="src/raw/video1.mp4" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Video 2</h3><video controls data-videoid="video2"><source src="src/raw/video2.mp4" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Video 3</h3><video controls data-videoid="video3"><source src="src/raw/video3.mp4" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Video 4</h3><video controls data-videoid="video4"><source src="src/raw/video4.mp4" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Video 5</h3><video controls data-videoid="video5"><source src="src/raw/video5.mp4" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Video 6</h3><video controls data-videoid="video6"><source src="src/raw/video6.mp4" type="video/mp4"></video></div>
     </div>
   </div>
 
-  <!-- 🔹 BLOQUE 2 -->
-  <div class="videos-container" id="bloque2" style="display:none;">
+  <!-- BLOQUE 2: videos 7..12 -->
+  <div class="videos-container" id="bloque2">
     <h2>🔧 Bloque 2 – Programación avanzada</h2>
     <div class="videos-grid">
-      <div class="video-card">
-        <h3>Video 3: Zonas</h3>
-        <video controls><source src="src/raw/video3.mp4" type="video/mp4"></video>
-      </div>
-      <div class="video-card">
-        <h3>Video 4: Comunicación</h3>
-        <video controls><source src="src/raw/video4.mp4" type="video/mp4"></video>
-      </div>
+      <div class="video-card"><h3>Video 7</h3><video controls data-videoid="video7"><source src="src/raw/video7.mp4" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Video 8</h3><video controls data-videoid="video8"><source src="src/raw/video8.mp4" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Video 9</h3><video controls data-videoid="video9"><source src="src/raw/video9.mp4" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Video 10</h3><video controls data-videoid="video10"><source src="src/raw/video10.mp4" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Video 11</h3><video controls data-videoid="video11"><source src="src/raw/video11.mp4" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Video 12</h3><video controls data-videoid="video12"><source src="src/raw/video12.mp4" type="video/mp4"></video></div>
     </div>
   </div>
 
-  <!-- 🔹 BLOQUE 3 -->
-  <div class="videos-container" id="bloque3" style="display:none;">
-    <h2>⚙️ Bloque 3 – Mantenimiento</h2>
+  <!-- BLOQUE 3: videos 13..18 -->
+  <div class="videos-container" id="bloque3">
+    <h2>⚙️ Bloque 3 – Mantenimiento y solución de problemas</h2>
     <div class="videos-grid">
-      <div class="video-card">
-        <h3>Video 5: Diagnóstico</h3>
-        <video controls><source src="src/raw/video5.mp4" type="video/mp4"></video>
-      </div>
-      <div class="video-card">
-        <h3>Video 6: Actualización</h3>
-        <video controls><source src="src/raw/video6.mp4" type="video/mp4"></video>
-      </div>
+      <div class="video-card"><h3>Video 13</h3><video controls data-videoid="video13"><source src="src/raw/video13.mp4" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Video 14</h3><video controls data-videoid="video14"><source src="src/raw/video14.mp4" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Video 15</h3><video controls data-videoid="video15"><source src="src/raw/video15.mp4" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Video 16</h3><video controls data-videoid="video16"><source src="src/raw/video16.mp4" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Video 17</h3><video controls data-videoid="video17"><source src="src/raw/video17.mp4" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Video 18</h3><video controls data-videoid="video18"><source src="src/raw/video18.mp4" type="video/mp4"></video></div>
     </div>
   </div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
     import { getAuth, signInWithCustomToken, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+    import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
+    // --- Config Firebase (usa tu config)
     const firebaseConfig = {
       apiKey: "AIzaSyB_0_PIpdto8u1touBZNVoHiago6M2akoc",
       authDomain: "manualix-1d0fc.firebaseapp.com",
@@ -281,6 +191,7 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
 
+    // DOM refs
     const params = new URLSearchParams(window.location.search);
     const token = params.get("token");
 
@@ -289,48 +200,56 @@
     const userAvatar = document.getElementById("userAvatar");
     const mensaje = document.getElementById("mensaje");
     const bloqueo = document.getElementById("bloqueo");
-    const contenido = document.getElementById("contenido");
-    const bloque2 = document.getElementById("bloque2");
-    const bloque3 = document.getElementById("bloque3");
     const btnSuscripcion = document.getElementById("btnSuscripcion");
     const btnIngresar = document.getElementById("btnIngresar");
     const btnLogout = document.getElementById("btnLogout");
+    const bloques = [
+      document.getElementById("bloque1"),
+      document.getElementById("bloque2"),
+      document.getElementById("bloque3")
+    ];
 
-    if (token) {
-      signInWithCustomToken(auth, token)
-        .then(() => console.log("✅ Sesión iniciada desde Android"))
-        .catch(err => console.error("Error validando token:", err));
+    // Helper: mostrar/ocultar bloques
+    function showBloques() {
+      bloques.forEach(b => { b.style.display = "block"; setTimeout(() => b.classList.add("show"), 80); });
+      bloqueo.style.display = "none";
+    }
+    function hideBloques() {
+      bloques.forEach(b => { b.style.display = "none"; b.classList.remove("show"); });
+      bloqueo.style.display = "block";
     }
 
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) return;
-      userEmailText.textContent = "Bienvenido: " + user.email;
+    // Si viene token desde la app Android, intentamos iniciar sesión automáticamente
+    if (token) {
+      signInWithCustomToken(auth, token)
+        .then(() => {
+          console.log("✅ Sesión iniciada desde Android (token recibido)");
+          // después de iniciar, verificamos suscripción automáticamente
+          checkSubscriptionAndShow();
+        })
+        .catch(err => {
+          console.error("Error validando token:", err);
+          mensaje.textContent = "No se pudo validar sesión automática.";
+        });
+    }
+
+    // Observador de estado auth
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        userEmailText.textContent = "No hay sesión activa.";
+        userEmailHeader.textContent = "👷‍♂️ Técnico: verificando...";
+        userAvatar.src = "src/image/default-user.png";
+        hideBloques();
+        return;
+      }
+      userEmailText.textContent = "Bienvenido Técnico instalador: " + user.email;
       userEmailHeader.textContent = "👷‍♂️ Técnico: " + user.email;
       if (user.photoURL) userAvatar.src = user.photoURL;
     });
 
+    // Botones
     btnSuscripcion.addEventListener("click", () => {
       window.open("https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=80b9657a5e7040b794c98f5d55ce4a6e", "_blank");
-    });
-
-    btnIngresar.addEventListener("click", async () => {
-      const user = auth.currentUser;
-      if (!user) return alert("Debe iniciar sesión nuevamente.");
-
-      const ref = doc(db, "suscripciones", user.email);
-      const snap = await getDoc(ref);
-
-      if (snap.exists() && snap.data().activa) {
-        mensaje.textContent = "✅ Suscripción verificada.";
-        [contenido, bloque2, bloque3].forEach(b => {
-          b.style.display = "block";
-          setTimeout(() => b.classList.add("show"), 100);
-        });
-        bloqueo.style.display = "none";
-      } else {
-        mensaje.textContent = "";
-        bloqueo.style.display = "block";
-      }
     });
 
     btnLogout.addEventListener("click", async () => {
@@ -339,15 +258,63 @@
       window.location.href = "index.html";
     });
 
-    // ▶️ Solo un video activo
-    const videos = document.querySelectorAll("video");
-    videos.forEach(video => {
-      video.addEventListener("play", () => {
-        videos.forEach(v => {
-          if (v !== video && !v.paused) v.pause();
+    // Si el usuario presiona "Ingresar" verificamos suscripción
+    btnIngresar.addEventListener("click", checkSubscriptionAndShow);
+
+    async function checkSubscriptionAndShow() {
+      const user = auth.currentUser;
+      if (!user) { alert("Debe iniciar sesión nuevamente."); return; }
+      try {
+        const ref = doc(db, "suscripciones", user.email);
+        const snap = await getDoc(ref);
+        if (snap.exists() && snap.data().activa) {
+          mensaje.textContent = "✅ Suscripción verificada. ¡Disfrutá los tutoriales!";
+          showBloques();
+        } else {
+          mensaje.textContent = "";
+          hideBloques();
+        }
+      } catch (err) {
+        console.error("Error verificando suscripción:", err);
+        mensaje.textContent = "Error verificando suscripción.";
+      }
+    }
+
+    // Registro de actividad: guarda un documento en collection 'activity'
+    async function logView(videoId) {
+      const user = auth.currentUser;
+      if (!user) return; // solo logueados
+      try {
+        await addDoc(collection(db, "activity"), {
+          email: user.email,
+          videoId: videoId,
+          ts: serverTimestamp()
+        });
+        // console.log("Activity logged:", videoId);
+      } catch (err) {
+        console.error("Error registrando actividad:", err);
+      }
+    }
+
+    // Control de reproducción: solo un video a la vez + logeo
+    function initVideoControls() {
+      const videos = document.querySelectorAll("video");
+      videos.forEach(video => {
+        video.addEventListener("play", () => {
+          videos.forEach(v => { if (v !== video && !v.paused) v.pause(); });
+          const vidId = video.getAttribute("data-videoid") || "unknown";
+          logView(vidId);
         });
       });
+    }
+
+    // Inicializar controles después del DOM
+    window.addEventListener("DOMContentLoaded", () => {
+      initVideoControls();
     });
+
+    // También inicializar por si los videos ya estaban listos
+    initVideoControls();
   </script>
 </body>
 </html>
