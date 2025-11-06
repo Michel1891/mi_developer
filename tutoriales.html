@@ -26,17 +26,17 @@
       margin: 0;
     }
 
-    /* 🔹 Barra de usuario */
-    .user-bar {
-      background: #052c47;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-      border-bottom: 2px solid #00b4d8;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+   /* 🔹 Barra de usuario */
+.user-bar {
+  background: #052c47;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 2px solid #00b4d8;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
     .user-info {
       display: flex;
@@ -54,6 +54,21 @@
     .user-info span {
       color: #caf0f8;
       font-weight: 500;
+    }
+
+    button {
+      background: #00b4d8;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 10px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #0091ad;
     }
 
     .user-actions button {
@@ -146,25 +161,54 @@
       text-align: center;
       color: #caf0f8;
     }
+    /* 📱 Adaptación móvil */
+    @media (max-width: 480px) {
+      body {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 100%;
+        padding: 25px;
+      }
+
+      .logo {
+        width: 180px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      button {
+        width: 100%;
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
+<body> 
+
+</head>
+
 <body>
+  <div class="container">
+    <img src="src/image/logo4.png" alt="Logo" class="logo">
+    <h1>Tutoriales Premium 🎬</h1>
+    <p id="userEmailText">Verificando sesión...</p>
+    <p id="mensaje"></p>
+    <button id="btnSuscripcion">💳 Suscribirme</button>
+    <button id="btnIngresar">🚪 Ingresar</button>
+    <button id="btnLogout">Cerrar sesión</button>
 
-  <header>
-    <h1>Tutoriales Premium</h1>
-  </header>
-
-  <!-- 🔹 Barra superior del usuario -->
-  <div class="user-bar">
-    <div class="user-info" id="userInfo">
-      <img src="https://www.gravatar.com/avatar/?d=mp&s=100" alt="avatar">
-      <span id="userEmail">No has iniciado sesión</span>
+    <div id="bloqueo" class="bloqueado" style="display:none;">
+      ⚠️ Tu suscripción no está activa.<br>
+      <a href="https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=80b9657a5e7040b794c98f5d55ce4a6e" style="color:#00b4d8; text-decoration:none; font-weight:bold;">
+        💳 Activar Suscripción
+      </a>
     </div>
-    <div class="user-actions">
-      <button id="loginBtn">Iniciar sesión</button>
-      <button id="logoutBtn" style="display:none;">Cerrar sesión</button>
-    </div>
-  </div>
 
   <div class="container">
 
@@ -209,44 +253,91 @@
 
   </div>
 
-  <script>
-    // ✅ Pausar otros videos cuando uno se reproduce
+  <!-- 🔥 Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB_0_PIpdto8u1touBZNVoHiago6M2akoc",
+      authDomain: "manualix-1d0fc.firebaseapp.com",
+      projectId: "manualix-1d0fc",
+      storageBucket: "manualix-1d0fc.appspot.com",
+      messagingSenderId: "847110946549",
+      appId: "1:847110946549:web:0a507851fef1d9df6ccfbc"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const userEmailText = document.getElementById("userEmailText");
+    const mensaje = document.getElementById("mensaje");
+    const bloqueo = document.getElementById("bloqueo");
+    const contenido = document.getElementById("contenido");
+    const btnSuscripcion = document.getElementById("btnSuscripcion");
+    const btnIngresar = document.getElementById("btnIngresar");
+    const btnLogout = document.getElementById("btnLogout");
+
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        alert("Sesión expirada. Vuelva a iniciar sesión.");
+        window.location.href = "index.html";
+        return;
+      }
+      userEmailText.textContent = "Bienvenido Técnico instalador: " + user.email;
+    });
+
+    btnSuscripcion.addEventListener("click", () => {
+      const url = "https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=80b9657a5e7040b794c98f5d55ce4a6e";
+      window.open(url, "_blank");
+      alert("Completá la suscripción y luego presioná 'Ingresar'.");
+    });
+
+    btnIngresar.addEventListener("click", async () => {
+      const user = auth.currentUser;
+      if (!user) {
+        alert("Debe iniciar sesión nuevamente.");
+        window.location.href = "index.html";
+        return;
+      }
+
+      const userEmail = user.email;
+      const ref = doc(db, "suscripciones", userEmail);
+      const snap = await getDoc(ref);
+
+      if (snap.exists()) {
+        const data = snap.data();
+        if (data.activa) {
+          mensaje.textContent = "✅ Suscripción verificada. ¡Disfrutá los tutoriales!";
+          contenido.style.display = "block";
+          bloqueo.style.display = "none";
+        } else {
+          mensaje.textContent = "";
+          contenido.style.display = "none";
+          bloqueo.style.display = "block";
+        }
+      } else {
+        mensaje.textContent = "";
+        contenido.style.display = "none";
+        bloqueo.style.display = "block";
+      }
+    });
+
+    btnLogout.addEventListener("click", async () => {
+      await signOut(auth);
+      alert("Sesión cerrada correctamente.");
+      window.location.href = "index.html";
+    });
+
+    // ✅ Solo un video se reproduce a la vez
     const videos = document.querySelectorAll("video");
     videos.forEach(video => {
       video.addEventListener("play", () => {
         videos.forEach(v => { if (v !== video) v.pause(); });
       });
     });
-
-    // ✅ Token recibido desde Android WebView
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');
-
-    // 🔹 Simulación de autenticación usando token
-    const userInfo = document.getElementById("userInfo");
-    const userEmail = document.getElementById("userEmail");
-    const avatar = userInfo.querySelector("img");
-    const loginBtn = document.getElementById("loginBtn");
-    const logoutBtn = document.getElementById("logoutBtn");
-
-    if (token) {
-      // Aquí podrías validar token en tu backend si querés.
-      userEmail.textContent = "usuario@developermiranda.com";
-      avatar.src = "https://i.pravatar.cc/100?u=" + token;
-      loginBtn.style.display = "none";
-      logoutBtn.style.display = "inline-block";
-    }
-
-    // 🔹 Botones simulados
-    loginBtn.addEventListener("click", () => {
-      alert("Inicia sesión desde la app ManualiX para acceder a los tutoriales premium.");
-    });
-
-    logoutBtn.addEventListener("click", () => {
-      alert("Sesión cerrada. Vuelve a iniciar desde la app.");
-      window.location.href = "index.html";
-    });
   </script>
-
 </body>
 </html>
