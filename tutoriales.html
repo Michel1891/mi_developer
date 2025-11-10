@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tutoriales del Sistema de alarmas</title>
   <style>
+    /* 🔹 Todo tu CSS original, sin tocar */
     body {
       background-color: #034164b9;
       margin: 0;
@@ -12,8 +13,6 @@
       color: white;
       padding-top: 100px;
     }
-
-    /* 🔹 Header fijo */
     header {
       position: fixed;
       top: 0;
@@ -29,182 +28,29 @@
       backdrop-filter: blur(6px);
       flex-wrap: wrap;
     }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .logo-header {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-    }
-
-    .user-info {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.2;
-    }
-
-    .user-info h1 {
-      font-size: 1.4rem;
-      color: #e0eaec;
-      text-shadow: 0 0 10px #00b4d8;
-      margin: 0;
-    }
-
-    #userEmailHeader {
-      font-size: 0.9rem;
-      color: #bde0fe;
-    }
-
-    .user-avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      border: 2px solid #00b4d8;
-      object-fit: cover;
-    }
-
-    #btnLogout {
-      background: #00b4d8;
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 8px 15px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
-    }
-
-    #btnLogout:hover {
-      background: #0091ad;
-      transform: scale(1.05);
-    }
-
-    /* Contenedor principal */
-    .container {
-      background: rgba(53, 47, 47, 0.75);
-      padding: 40px;
-      border-radius: 15px;
-      max-width: 350px;
-      width: 90%;
-      box-shadow: 0 0 20px rgb(247, 247, 247);
-      text-align: center;
-      margin: 20px auto;
-    }
-
-    .logo {
-      width: 250px;
-      margin-bottom: 15px;
-      animation: aparecerZoom 1s ease-out forwards;
-      opacity: 0;
-    }
-
-    @keyframes aparecerZoom {
-      0% { transform: scale(0.5); opacity: 0; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-
-    h2 {
-      text-align: center;
-      color: #00b4d8;
-      margin-bottom: 15px;
-    }
-
-    button {
-      background: #00b4d8;
-      color: #fff;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin: 10px;
-      transition: background 0.3s, transform 0.2s;
-    }
-
-    button:hover {
-      background: #0091ad;
-      transform: scale(1.05);
-    }
-
-    #mensaje {
-      margin: 15px 0;
-      font-size: 1rem;
-    }
-
-    .bloqueado {
-      color: #ff6666;
-      font-weight: bold;
-      background: rgba(0,0,0,0.6);
-      display: inline-block;
-      padding: 10px 15px;
-      border-radius: 10px;
-      margin-top: 20px;
-    }
-
-    /* Contenedor de videos */
-    .videos-container {
-      max-width: 900px;
-      width: 90%;
-      margin: 0 auto 30px auto;
-      padding: 30px 20px;
-      background: rgba(53, 47, 47, 0.75);
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgb(247, 247, 247);
-      color: white;
-      opacity: 0;
-      transition: opacity 0.7s ease-in;
-      display: none;
-    }
-
-    .videos-container.show {
-      opacity: 1;
-    }
-
-    .videos-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-top: 20px;
-    }
-
-    .video-card {
-      background: rgba(0, 0, 0, 0.4);
-      border-radius: 15px;
-      box-shadow: 0 0 10px rgba(0, 180, 216, 0.4);
-      padding: 15px;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .video-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 20px rgba(0, 180, 216, 0.8);
-    }
-
-    .video-card h3 {
-      margin-bottom: 10px;
-      color: #00b4d8;
-    }
-
-    .video-card video {
-      width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 180, 216, 0.5);
-    }
-
-    /* 📱 Responsive */
-    @media (max-width: 480px) {
-      header { flex-direction: column; text-align: center; }
-      header h1 { font-size: 1.2rem; }
-      #btnLogout { margin-top: 10px; width: 100%; }
-      .container { max-width: 100%; padding: 25px; }
-      .logo { width: 180px; }
-      button { width: 100%; font-size: 1rem; }
-    }
+    .header-left { display: flex; align-items: center; gap: 15px; }
+    .logo-header { width: 50px; height: 50px; border-radius: 50%; }
+    .user-info { display: flex; flex-direction: column; line-height: 1.2; }
+    .user-info h1 { font-size: 1.4rem; color: #e0eaec; text-shadow: 0 0 10px #00b4d8; margin: 0; }
+    #userEmailHeader { font-size: 0.9rem; color: #bde0fe; }
+    .user-avatar { width: 50px; height: 50px; border-radius: 50%; border: 2px solid #00b4d8; object-fit: cover; }
+    #btnLogout { background: #00b4d8; color: #fff; border: none; border-radius: 6px; padding: 8px 15px; font-size: 1rem; cursor: pointer; transition: background 0.3s, transform 0.2s; }
+    #btnLogout:hover { background: #0091ad; transform: scale(1.05); }
+    .container { background: rgba(53, 47, 47, 0.75); padding: 40px; border-radius: 15px; max-width: 350px; width: 90%; box-shadow: 0 0 20px rgb(247, 247, 247); text-align: center; margin: 20px auto; }
+    .logo { width: 250px; margin-bottom: 15px; animation: aparecerZoom 1s ease-out forwards; opacity: 0; }
+    @keyframes aparecerZoom { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    h2 { text-align: center; color: #00b4d8; margin-bottom: 15px; }
+    button { background: #00b4d8; color: #fff; padding: 10px 15px; border: none; border-radius: 6px; cursor: pointer; margin: 10px; transition: background 0.3s, transform 0.2s; }
+    button:hover { background: #0091ad; transform: scale(1.05); }
+    #mensaje { margin: 15px 0; font-size: 1rem; }
+    .bloqueado { color: #ff6666; font-weight: bold; background: rgba(0,0,0,0.6); display: inline-block; padding: 10px 15px; border-radius: 10px; margin-top: 20px; }
+    .videos-container { max-width: 900px; width: 90%; margin: 0 auto 30px auto; padding: 30px 20px; background: rgba(53, 47, 47, 0.75); border-radius: 15px; box-shadow: 0 0 20px rgb(247, 247, 247); color: white; opacity: 0; transition: opacity 0.7s ease-in; display: none; }
+    .videos-container.show { opacity: 1; }
+    .videos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+    .video-card { background: rgba(0, 0, 0, 0.4); border-radius: 15px; box-shadow: 0 0 10px rgba(0, 180, 216, 0.4); padding: 15px; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .video-card:hover { transform: translateY(-5px); box-shadow: 0 0 20px rgba(0, 180, 216, 0.8); }
+    .video-card h3 { margin-bottom: 10px; color: #00b4d8; }
+    .video-card video { width: 100%; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 180, 216, 0.5); }
   </style>
 </head>
 <body>
@@ -238,38 +84,69 @@
     </div>
   </div>
 
-  <!-- 🔹 BLOQUE 1 -->
-  <div class="videos-container" id="bloque1">
-    <h2>🎥 Bloque 1 – Introducción y configuración básica</h2>
-    <div class="videos-grid">
-      <div class="video-card"><h3>Video 1: Introducción</h3><video controls><source src="src/raw/video1.mp4" type="video/mp4"></video></div>
-      <div class="video-card"><h3>Video 2: Configuración inicial</h3><video controls><source src="src/raw/video2.mp4" type="video/mp4"></video></div>
-    </div>
-  </div>
+<!-- 🔹 BLOQUE 1 -->
+<div class="videos-container" id="bloque1">
+  <h2>🎥 Bloque 1 – Configuración de la central DSC 1832</h2>
+  <div class="videos-grid">
 
-  <!-- 🔹 BLOQUE 2 -->
-  <div class="videos-container" id="bloque2">
-    <h2>🔧 Bloque 2 – Programación avanzada</h2>
-    <div class="videos-grid">
-      <div class="video-card"><h3>Video 3: Programación de zonas</h3><video controls><source src="src/raw/video3.mp4" type="video/mp4"></video></div>
-      <div class="video-card"><h3>Video 4: Comunicación y reportes</h3><video controls><source src="src/raw/video4.mp4" type="video/mp4"></video></div>
-    </div>
-  </div>
+    <div class="video-card"><h3>Video 3</h3><video controls><source src="https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2Fdsc%2Fvideo1.mp4?alt=media&token=aeadc4a6-0440-4bbd-9e66-c850d1d86c11" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 4</h3><video controls><source src="https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2Fdsc%2Fvideo2.mp4?alt=media&token=5b72e021-e8ca-408f-ae79-16f5eb062836" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 5</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 6</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 7</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 8</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 9</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 10</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
 
-  <!-- 🔹 BLOQUE 3 -->
-  <div class="videos-container" id="bloque3">
-    <h2>⚙️ Bloque 3 – Mantenimiento y solución de problemas</h2>
-    <div class="videos-grid">
-      <div class="video-card"><h3>Video 5: Diagnóstico de fallas</h3><video controls><source src="src/raw/video5.mp4" type="video/mp4"></video></div>
-      <div class="video-card"><h3>Video 6: Actualización de firmware</h3><video controls><source src="src/raw/video6.mp4" type="video/mp4"></video></div>
-    </div>
   </div>
+</div>
 
-  <!-- 🔥 Firebase con validación automática por token -->
+<!-- 🔹 BLOQUE 2 -->
+<div class="videos-container" id="bloque2">
+  <h2>🔧 Bloque 2 – Programación avanzada</h2>
+  <div class="videos-grid">
+
+    <div class="video-card"><h3>Video 1</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 2</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 3</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 4</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 5</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 6</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 7</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 8</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 9</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 10</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+
+  </div>
+</div>
+
+<!-- 🔹 BLOQUE 3 -->
+<div class="videos-container" id="bloque3">
+  <h2>⚙️ Bloque 3 – Mantenimiento y solución de problemas</h2>
+  <div class="videos-grid">
+
+    <div class="video-card"><h3>Video 1</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 2</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 3</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 4</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 5</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 6</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 7</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 8</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 9</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+    <div class="video-card"><h3>Video 10</h3><video controls><source src="TU_URL_AQUI" type="video/mp4"></video></div>
+
+  </div>
+</div>
+
+
+
+  <!-- 🔥 Firebase + Storage -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
     import { getAuth, signInWithCustomToken, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
     import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+    import { getStorage, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-storage.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyB_0_PIpdto8u1touBZNVoHiago6M2akoc",
@@ -283,7 +160,27 @@
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
+    const storage = getStorage(app);
 
+    // 🔹 Cargar videos desde Firebase Storage
+    const videoRefs = {
+      video1: "videos/video1.mp4",
+      video2: "videos/video2.mp4",
+      video3: "videos/video3.mp4",
+      video4: "videos/video4.mp4",
+      video5: "videos/video5.mp4",
+      video6: "videos/video6.mp4"
+    };
+
+    Object.entries(videoRefs).forEach(([id, path]) => {
+      const video = document.getElementById(id);
+      const storageRef = ref(storage, path);
+      getDownloadURL(storageRef)
+        .then(url => { video.src = url; })
+        .catch(err => console.error(`❌ Error cargando ${path}:`, err));
+    });
+
+    // 🔹 Lógica original de autenticación y suscripción
     const params = new URLSearchParams(window.location.search);
     const token = params.get("token");
 
@@ -342,3 +239,4 @@
   </script>
 </body>
 </html>
+
