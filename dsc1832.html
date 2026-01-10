@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manuales y Tutoriales Dsc 1616/1832/1864</title>
+
+<style>
+body{
+  background:#034164b9;
+  margin:0;
+  font-family:Arial,sans-serif;
+  color:#fff;
+  padding-top:100px;
+}
+
+/* HEADER */
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  background:rgba(3,65,100,.95);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 20px;
+  z-index:1000;
+  box-shadow:0 2px 10px rgba(0,0,0,.4);
+}
+.header-left{display:flex;align-items:center;gap:15px}
+.logo-header{width:50px;height:50px;border-radius:50%}
+.user-avatar{width:45px;height:45px;border-radius:50%;border:2px solid #00b4d8}
+#btnLogout{background:#00b4d8;color:#fff;border:none;border-radius:6px;padding:8px 14px;cursor:pointer}
+
+/* PANEL */
+.container{
+  background:rgba(53,47,47,.75);
+  max-width:360px;
+  margin:20px auto;
+  padding:40px;
+  border-radius:15px;
+  box-shadow:0 0 20px #fff;
+  text-align:center;
+}
+.logo{width:240px;margin-bottom:15px}
+button{
+  background:#00b4d8;
+  color:#fff;
+  padding:10px 15px;
+  border:none;
+  border-radius:6px;
+  margin:10px;
+  cursor:pointer;
+}
+.bloqueado{
+  display:none;
+  background:rgba(0,0,0,.7);
+  padding:15px;
+  border-radius:10px;
+  color:#ff7777;
+}
+
+/* CONTENIDO */
+.videos-container{
+  max-width:450px;
+  width:90%;
+  margin:30px auto;
+  padding:25px;
+  background:rgba(53,47,47,.75);
+  border-radius:15px;
+  box-shadow:0 0 20px #fff;
+  display:none;
+  opacity:0;
+  transition:.5s;
+}
+.videos-container.show{opacity:1}
+.videos-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+}
+.video-card{
+  background:rgba(0,0,0,.45);
+  padding:15px;
+  border-radius:15px;
+  text-align:center;
+  box-shadow:0 0 10px rgba(0,180,216,.5);
+}
+video{width:100%;border-radius:10px}
+
+/* VISOR PDF */
+#pdfViewerContainer{
+  max-width:1100px;
+  width:95%;
+  height:80vh;
+  margin:30px auto;
+  background:rgba(0,0,0,.9);
+  border-radius:15px;
+  box-shadow:0 0 25px #00b4d8;
+  display:none;
+  flex-direction:column;
+}
+#pdfHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 15px;
+  background:rgba(0,180,216,.25);
+  border-radius:15px 15px 0 0;
+}
+#pdfFrame{
+  width:100%;
+  height:100%;
+  border:none;
+  border-radius:0 0 15px 15px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-left">
+    <img src="src/image/logo4.png" class="logo-header">
+    <h2>Tutoriales Premium</h2>
+  </div>
+  <div>
+    <img src="src/image/default-user.png" class="user-avatar">
+    <button id="btnLogout">Salir</button>
+  </div>
+</header>
+
+<div class="container">
+  <img src="src/image/logo4.png" class="logo">
+  <h2>Manuales y Tutoriales DSC </h2>
+  <button id="btnIngresar">🚪 Ingrese para visualizar contenido</button>
+
+  <div id="bloqueo" class="bloqueado">
+    ⚠️ Debes tener una suscripción activa<br><br>
+    <a style="color:#00b4d8"
+       href="https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=80b9657a5e7040b794c98f5d55ce4a6e">
+       Activar suscripción
+    </a>
+  </div>
+</div>
+
+<!-- PDFs -->
+<div class="videos-container" id="pdfs">
+<h2>📄 Manuales y Tutoriales de central Dsc 1832</h2>
+<div class="videos-grid">
+  <div class="video-card">
+    <h3>Manual DSC 1832</h3>
+    <button onclick="abrirPDF('Manual')">Ver PDF</button>
+  </div>
+  <div class="video-card">
+    <h3>Guía Rápida</h3>
+    <button onclick="abrirPDF('Guia')">Ver PDF</button>
+  </div>
+  <div class="video-card">
+    <h3>Preguntas frecuentes</h3>
+    <button onclick="abrirPDF('Preguntas')">Ver PDF</button>
+  </div>
+  <div class="video-card">
+    <h3>Manual de Usuario</h3>
+    <button onclick="abrirPDF('Usuario')">Ver PDF</button>
+  </div>
+  <div class="video-card">
+    <h3>Listado de falla</h3>
+    <button onclick="abrirPDF('Falla')">Ver PDF</button>
+  </div>
+</div>
+</div>
+
+<!-- 🔹 BLOQUE 1 -->
+<div class="videos-container" id="bloque1">
+    <h2>🎥 Tutorial de configuración de la central DSC 1832</h2>
+    <div class="videos-grid">
+  
+      <div class="video-card"><h3>Resetear de fabrica central dsc 1832</h3><video controls><source src="https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2Fdsc%2Fvideo1.mp4?alt=media&token=9b7b08ab-fcda-45b1-bdb2-d10018758dc0" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Restablecer hora en panel</h3><video controls><source src="https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2Fdsc%2Fvideo2.mp4?alt=media&token=cf5e20d6-e865-4484-93cf-4d03ec38ac5c" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Programar tiempos de sistema </h3><video controls><source src="https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2Fdsc%2Fvideo3.mp4?alt=media&token=9ccc894e-bc30-4239-be91-c6baee024c9a" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Programar defincion de zona</h3><video controls><source src="https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2Fdsc%2Fvideo4.mp4?alt=media&token=bcb8de61-d7f3-4e60-8e88-6819eefb91e5" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Programar circuito con DRFL</h3><video controls><source src="https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2Fdsc%2Fvideo5.mp4?alt=media&token=cab1f2ca-e58d-43ce-9603-bb6edd578308" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Programar zona a utilizar</h3><video controls><source src="https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2Fdsc%2Fvideo6.mp4?alt=media&token=40fd817d-369f-471c-bd9d-041c7f3f03ed" type="video/mp4"></video></div>
+      <div class="video-card"><h3>Programar codigo de usuarios</h3><video controls><source src="https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2Fdsc%2Fvideo7.mp4?alt=media&token=4f211738-71f6-41af-b5b9-79eb1d21b01f" type="video/mp4"></video></div>
+  
+    </div>
+    </div>
+<!-- VISOR PDF -->
+<div id="pdfViewerContainer">
+  <div id="pdfHeader">
+    <strong>📄 Documento</strong>
+    <button onclick="cerrarPDF()">Cerrar ✖</button>
+  </div>
+  <iframe id="pdfFrame"></iframe>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+/* FIREBASE */
+const firebaseConfig={
+  apiKey:"AIzaSyB_0_PIpdto8u1touBZNVoHiago6M2akoc",
+  authDomain:"manualix-1d0fc.firebaseapp.com",
+  projectId:"manualix-1d0fc",
+  messagingSenderId:"847110946549",
+  appId:"1:847110946549:web:0a507851fef1d9df6ccfbc"
+};
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+
+/* CONTROL DE ACCESO */
+let accesoPermitido=false;
+
+const bloques=[
+  document.getElementById("pdfs"),
+  document.getElementById("bloque1")
+];
+
+const bloqueo=document.getElementById("bloqueo");
+
+/* PDFs LOCALES */
+const pdfs={
+  Manual:"https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2FArchivosPdf%2FDsc1832%2FManualdeProgramacion%2FManual%20dsc%201832.pdf?alt=media&token=1b3c0662-3a11-4b2b-b77a-438e49f3bb91",
+  Guia:"https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2FArchivosPdf%2FDsc1832%2FGuiaRapida%2FGuia%20Rapida%20dsc%201832.pdf?alt=media&token=3bafb95a-e5b2-4782-9997-2e915d3cac08",
+  Preguntas:"https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2FArchivosPdf%2FDsc1832%2FPreguntasFrecuentes%2FPREGUNTAS%20FRECUENTES%20EN%20DSC%201832.pdf?alt=media&token=7cef49db-a9ed-4559-b173-1b2c2a6920cc",
+  Usuario:"https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2FArchivosPdf%2FDsc1832%2FManualUsuario%2FManual%20usuario%20dsc%201832.pdf?alt=media&token=6d45d20d-c113-4acf-94fd-b13e365af019",
+  Falla:"https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2FArchivosPdf%2FDsc1832%2FListadeFalla%2FLISTA%20DE%20FALLA%20DSC%201832.pdf?alt=media&token=6f02d3d2-7ca7-403c-9e40-ced770e83b29"
+};
+
+/* ABRIR PDF (SOLO CON SUSCRIPCIÓN) */
+window.abrirPDF=(id)=>{
+  if(!accesoPermitido){
+    alert("Debes tener una suscripción activa.");
+    return;
+  }
+  const frame=document.getElementById("pdfFrame");
+  const visor=document.getElementById("pdfViewerContainer");
+  frame.src=pdfs[id];
+  visor.style.display="flex";
+  visor.scrollIntoView({behavior:"smooth"});
+};
+
+window.cerrarPDF=()=>{
+  document.getElementById("pdfFrame").src="";
+  document.getElementById("pdfViewerContainer").style.display="none";
+};
+
+/* BOTÓN INGRESAR */
+document.getElementById("btnIngresar").onclick=async()=>{
+  const user=auth.currentUser;
+  if(!user)return;
+
+  const snap=await getDoc(doc(db,"suscripciones",user.email));
+
+  if(snap.exists() && snap.data().activa===true){
+    accesoPermitido=true;
+    bloqueo.style.display="none";
+    bloques.forEach(b=>{
+      b.style.display="block";
+      setTimeout(()=>b.classList.add("show"),100);
+    });
+  }else{
+    accesoPermitido=false;
+    bloqueo.style.display="block";
+  }
+};
+
+/* AUTO-VALIDACIÓN AL RECARGAR */
+onAuthStateChanged(auth,async(user)=>{
+  if(!user)return;
+  const snap=await getDoc(doc(db,"suscripciones",user.email));
+  if(snap.exists() && snap.data().activa===true){
+    accesoPermitido=true;
+  }
+});
+
+/* LOGOUT */
+document.getElementById("btnLogout").onclick=async()=>{
+  await signOut(auth);
+  location.reload();
+};
+</script>
+
+</body>
+</html>
+
