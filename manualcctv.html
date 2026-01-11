@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manuales de CCTV Dahua/Hikvision</title>
+
+<style>
+body{
+  background:#034164b9;
+  margin:0;
+  font-family:Arial,sans-serif;
+  color:#fff;
+  padding-top:100px;
+}
+
+/* HEADER */
+header{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  background:rgba(3,65,100,.95);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 20px;
+  z-index:1000;
+  box-shadow:0 2px 10px rgba(0,0,0,.4);
+}
+.header-left{display:flex;align-items:center;gap:15px}
+.logo-header{width:50px;height:50px;border-radius:50%}
+.user-avatar{width:45px;height:45px;border-radius:50%;border:2px solid #00b4d8}
+#btnLogout{background:#00b4d8;color:#fff;border:none;border-radius:6px;padding:8px 14px;cursor:pointer}
+
+/* PANEL */
+.container{
+  background:rgba(53,47,47,.75);
+  max-width:360px;
+  margin:20px auto;
+  padding:40px;
+  border-radius:15px;
+  box-shadow:0 0 20px #fff;
+  text-align:center;
+}
+.logo{width:240px;margin-bottom:15px}
+button{
+  background:#00b4d8;
+  color:#fff;
+  padding:10px 15px;
+  border:none;
+  border-radius:6px;
+  margin:10px;
+  cursor:pointer;
+}
+.bloqueado{
+  display:none;
+  background:rgba(0,0,0,.7);
+  padding:15px;
+  border-radius:10px;
+  color:#ff7777;
+}
+
+/* CONTENIDO */
+.videos-container{
+  max-width:450px;
+  width:90%;
+  margin:30px auto;
+  padding:25px;
+  background:rgba(53,47,47,.75);
+  border-radius:15px;
+  box-shadow:0 0 20px #fff;
+  display:none;
+  opacity:0;
+  transition:.5s;
+}
+.videos-container.show{opacity:1}
+.videos-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+}
+.video-card{
+  background:rgba(0,0,0,.45);
+  padding:15px;
+  border-radius:15px;
+  text-align:center;
+  box-shadow:0 0 10px rgba(0,180,216,.5);
+}
+video{width:100%;border-radius:10px}
+
+/* VISOR PDF */
+#pdfViewerContainer{
+  max-width:1100px;
+  width:95%;
+  height:80vh;
+  margin:30px auto;
+  background:rgba(0,0,0,.9);
+  border-radius:15px;
+  box-shadow:0 0 25px #00b4d8;
+  display:none;
+  flex-direction:column;
+}
+#pdfHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 15px;
+  background:rgba(0,180,216,.25);
+  border-radius:15px 15px 0 0;
+}
+#pdfFrame{
+  width:100%;
+  height:100%;
+  border:none;
+  border-radius:0 0 15px 15px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-left">
+    <img src="src/image/logo4.png" class="logo-header">
+    <h2>📄Manuales CCTV Dahua/Hikvision</h2>
+  </div>
+  <div>
+    <img src="src/image/default-user.png" class="user-avatar">
+    <button id="btnLogout">Salir</button>
+  </div>
+</header>
+
+<div class="container">
+  <img src="src/image/logo4.png" class="logo">
+  <h2>📄Manuales de CCTV Dahua/Hikvision</h2>
+  <button id="btnIngresar">🚪 Ingrese para visualizar contenido</button>
+
+  <div id="bloqueo" class="bloqueado">
+    ⚠️ Debes tener una suscripción activa<br><br>
+    <a style="color:#00b4d8"
+       href="https://www.mercadopago.com.uy/subscriptions/checkout?preapproval_plan_id=80b9657a5e7040b794c98f5d55ce4a6e">
+       Activar suscripción
+    </a>
+  </div>
+</div>
+
+<!-- PDFs -->
+<div class="videos-container" id="pdfs">
+<h2>📄 Manuales de instalacion de Dahua / Hikvision</h2>
+<div class="videos-grid">
+  <div class="video-card">
+    <h3>📄Manual de instalacion Dahua</h3>
+    <button onclick="abrirPDF('Manual')">Ver PDF</button>
+  </div>
+  <div class="video-card">
+    <h3>📄 Manual de usuario Dahua</h3>
+    <button onclick="abrirPDF('Guia')">Ver PDF</button>
+  </div>
+  <div class="video-card">
+    <h3>📄 Manual de instalacion Hikvision</h3>
+    <button onclick="abrirPDF('Preguntas')">Ver PDF</button>
+  </div>
+  <div class="video-card">
+    <h3>📄 Manual de usuario Hikvision</h3>
+    <button onclick="abrirPDF('Usuario')">Ver PDF</button>
+  </div>
+  <div class="video-card">
+    <h3>📄 Configuracion Dahua</h3>
+    <button onclick="abrirPDF('Falla')">Ver PDF</button>
+  </div>
+  <div class="video-card">
+    <h3>📄 Configuracion Hikvision</h3>
+    <button onclick="abrirPDF('Falla1')">Ver PDF</button>
+  </div>
+</div>
+</div>
+
+    </div>
+    </div>
+<!-- VISOR PDF -->
+<div id="pdfViewerContainer">
+  <div id="pdfHeader">
+    <strong>📄 Documento</strong>
+    <button onclick="cerrarPDF()">Cerrar ✖</button>
+  </div>
+  <iframe id="pdfFrame"></iframe>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+/* FIREBASE */
+const firebaseConfig={
+  apiKey:"AIzaSyB_0_PIpdto8u1touBZNVoHiago6M2akoc",
+  authDomain:"manualix-1d0fc.firebaseapp.com",
+  projectId:"manualix-1d0fc",
+  messagingSenderId:"847110946549",
+  appId:"1:847110946549:web:0a507851fef1d9df6ccfbc"
+};
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+
+/* CONTROL DE ACCESO */
+let accesoPermitido=false;
+
+const bloques=[
+  document.getElementById("pdfs"),
+  document.getElementById("bloque1")
+];
+
+const bloqueo=document.getElementById("bloqueo");
+
+/* PDFs LOCALES */
+const pdfs={
+  Manual:"https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2FArchivosPdf%2FManualesCCTV%2FManualesdeInstalacionDAHUA%2FManual-de-instalacion.pdf?alt=media&token=c1b0eb37-f5ce-47d2-9a5b-3b8203ea6e42",
+  Guia:"https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2FArchivosPdf%2FManualesCCTV%2FManualdeUsuarioDahua%2FDahuaManual%20de%20Usuario.pdf?alt=media&token=8f9933ef-6e06-400c-a9f8-f49959e052bd",
+  Preguntas:"https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2FArchivosPdf%2FManualesCCTV%2FManualdeInstalacionHIKVISION%2FGu%C3%ADa-del-Instalador-Hikvision.pdf?alt=media&token=5d9eefb2-6513-43b2-b48e-404bff2e2807",
+  Usuario:"https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2FArchivosPdf%2FManualesCCTV%2FManualdeUsuarioHIKVISION%2FCCTVHIKVISION.pdf?alt=media&token=5eb4bf78-0bd9-48d1-9f4f-3516e328792c",
+  Falla:"https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2FArchivosPdf%2FManualesCCTV%2FConfiguracionDAHUA%2FConfiguraci%C3%B3n%20DVR%20Dahua.pdf?alt=media&token=a5d13f05-83ea-43b0-99cc-9b8bba054f89",
+  Falla1:"https://firebasestorage.googleapis.com/v0/b/manualix-1d0fc.firebasestorage.app/o/Tutoriales%2FArchivosPdf%2FManualesCCTV%2FConfiguracionHIKVISION%2FConfiguraci%C3%B3n%20DVR%20Hikvision.pdf?alt=media&token=fabf00d4-0524-43ad-ba2a-9b277db59f5b",
+};
+
+/* ABRIR PDF (SOLO CON SUSCRIPCIÓN) */
+window.abrirPDF=(id)=>{
+  if(!accesoPermitido){
+    alert("Debes tener una suscripción activa.");
+    return;
+  }
+  const frame=document.getElementById("pdfFrame");
+  const visor=document.getElementById("pdfViewerContainer");
+  frame.src=pdfs[id];
+  visor.style.display="flex";
+  visor.scrollIntoView({behavior:"smooth"});
+};
+
+window.cerrarPDF=()=>{
+  document.getElementById("pdfFrame").src="";
+  document.getElementById("pdfViewerContainer").style.display="none";
+};
+
+/* BOTÓN INGRESAR */
+document.getElementById("btnIngresar").onclick=async()=>{
+  const user=auth.currentUser;
+  if(!user)return;
+
+  const snap=await getDoc(doc(db,"suscripciones",user.email));
+
+  if(snap.exists() && snap.data().activa===true){
+    accesoPermitido=true;
+    bloqueo.style.display="none";
+    bloques.forEach(b=>{
+      b.style.display="block";
+      setTimeout(()=>b.classList.add("show"),100);
+    });
+  }else{
+    accesoPermitido=false;
+    bloqueo.style.display="block";
+  }
+};
+
+/* AUTO-VALIDACIÓN AL RECARGAR */
+onAuthStateChanged(auth,async(user)=>{
+  if(!user)return;
+  const snap=await getDoc(doc(db,"suscripciones",user.email));
+  if(snap.exists() && snap.data().activa===true){
+    accesoPermitido=true;
+  }
+});
+
+/* LOGOUT */
+document.getElementById("btnLogout").onclick=async()=>{
+  await signOut(auth);
+  location.reload();
+};
+</script>
+
+</body>
+</html>
+
